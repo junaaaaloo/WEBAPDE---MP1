@@ -1,0 +1,382 @@
+/* Background and the viewport */
+#background {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+    
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;   
+    background-image: url("resources/bg-crystal.png");
+    /*filter: blur(2px);*/
+    background-repeat: no-repeat;
+    
+    height:100%;
+    width:100%;
+}
+
+#viewport {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Title and subtitle, Navigation Bars */
+#title, #subtitle, #container {
+    position: fixed;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}
+
+#title, #subtitle {
+    font-family: 'LATO';
+    color: white;
+    opacity: 0.8;
+    text-align: center;
+    width: 100%;
+    z-index: 5;
+    cursor: default;
+    background-color: rgb(14, 25, 44);
+}
+
+#title {
+    top: 0;
+    height: 10%;   
+    font-size: 50px;
+    font-weight: bolder;
+}
+
+#subTitle {
+    height: 5%;
+    top: 10%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#bottomBar {
+    position: fixed;
+    width: 80px;
+    height: 320px;
+    opacity: 0.8;
+    top: 20%;
+    z-index: 5;
+    left: 0%;
+    background-color: rgb(14, 25, 44);
+}
+
+#bottomNav {
+    list-style-type: none;
+    list-style: none;
+    padding-left: 0;
+    padding-right: 0;
+    left: 0px;
+    text-align: center;
+}
+
+.navIcon {
+    position: relative;
+    display:block;
+    width: 80px;
+    height: 60px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: background-color 0.5s;
+    background-color: rgb(14, 25, 44);
+}
+
+.navIcon:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.navIconText {
+    font-size: 10px; 
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    left: 0;
+}
+
+.navLinkIcon {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    margin: auto;
+    background-image: url("resources/spritesheet.png");
+    background-size: 200px 160px;
+    margin-top: 3;
+}
+
+#home {
+    background-position: 0px 40px;
+}
+
+#users {
+    background-position: -120px 40px;
+}
+
+#images {
+    background-position: -40px 40px;
+}
+
+#albums {
+    background-position: -80px 40px;
+}
+
+.post, #bottomNav {
+    font-family: 'Open Sans';
+    color:white;
+}
+
+/* Posts, Images, User Profiles */
+#WholePanel {
+    position: absolute;
+    height: 85%;
+    width: 80%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 15%;
+}
+
+.container, .container-active {
+    position: relative;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+
+#imageContainer {
+    width: 80%;
+    margin: 100px auto;
+    flex-direction: wrap;
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.picture, .details, .content, .imageContent {
+    background-color: white;
+    opacity: 0.4;
+    border-radius: 5px;
+}
+
+.post, .imagePost, .user {
+    position: relative;
+    margin: auto;
+    left: 0;
+    right: 0;
+    opacity: 0.7;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #FECA74, #F68B64, #E2636A, #C1678C, #996C93);
+    transition: opacity 0.5s, width 0.5s, height 0.5s, box-shadow 1s;
+}
+
+.post {
+    width: 500px;
+    height: 220px;
+    flex-grow: 1;
+}
+
+
+.post:hover {
+    width: 510px;
+    height: 230px;
+    opacity: 0.95;
+}
+
+.picture {
+    position: absolute;
+    background: url(resources/spritesheet.png);
+}
+
+.post .picture {
+    left: 15px;
+    top: 15px;
+    background-size: 750px 600px;
+    background-position: 300px 600px;
+    width: 150px;
+    height: 150px;
+}
+
+.user .picture {
+    width: 80px;
+    height: 80px;
+    left: 10px;
+    top: 10px;
+    bottom: 10px;
+    background-size: 400px 320px;
+    background-position: 160px 320px;
+}
+
+.user .info {
+    width: 75%;
+    height: 80%;
+    float: right;
+    margin: 10px;
+    background-color: white;
+    opacity: 0.6;
+    border-radius: 10px;
+}
+
+.post .content { 
+    position: absolute;
+    height: 150px;
+    top: 15px;
+    left: 170px;
+    right: 15px;
+}
+
+
+.post .details {
+    position: absolute;
+    height: 30px;
+    bottom: 15px;
+    right: 15px;
+    left: 15px;
+}
+
+.imagePost {
+    padding: 10px;
+    width: 160px;
+    height: 160px;
+}
+
+.imageContent {
+    width: 150px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.imagePost:hover {
+    width: 165px;
+    height: 165px;
+    opacity: 0.95;
+}
+
+.user {
+    width: 500px;
+    height: 100px;
+    opacity: 0.7;
+}
+
+.user:hover {
+    opacity: 0.95;
+    width: 510px;
+    height: 110px;
+}
+
+.post:hover, .imagePost:hover, .user:hover {
+    box-shadow: 2px 2px 2px #000000;
+}
+
+.more {
+    position: absolute;
+    text-decoration: none;
+    bottom: 70px;
+    font-family: 'LATO';
+    color:  rgb(14, 25, 44);
+    font-style: oblique;
+    margin: auto;
+    left: 0;
+    right: 0;
+    font-size: 26px;
+    font-weight: bolder;
+    transition: font-size 1s, font-weight 1s;
+    color: white;
+}
+
+.more:hover {
+    font-size: 28px;
+    cursor: pointer;
+}
+
+#moreMessage {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height:100px;
+}
+
+#searchMessage {
+    margin: 50px auto;
+    text-align: center;
+    width: 380px;
+    height: 30px;
+    opacity: 0.7;
+    background-color: white;
+    border-radius: 3em;
+    padding: 5px;
+    transition: width 0.5s, height 0.5s, opacity 0.5s;
+}
+
+#searchMessage:hover {
+    width: 400px;
+    opacity: 0.95; 
+}
+
+#searchText {
+    font-family: 'Open Sans';
+    border-radius: 3em;
+    margin: auto;
+    width: 300px;
+    height: 30px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    border: none;
+}
+
+#searchText:focus{
+    outline: none;
+}
+
+#search {
+    background-position: 30px 60px;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    background-image: url(resources/spritesheet.png);
+    background-size: 150px 120px;
+    float: right;
+}
+
+.titleContainer {
+    font-size: 38px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Lato';
+    font-weight: bolder;
+    cursor: default;
+}
+
+
+/*
+    COLOR SCHEME: 
+    HTML code:	#FECA74
+    RGB code:	R: 254 G: 202 B: 116
+
+    HTML code:	#F68B64
+    RGB code:	R: 246 G: 139 B: 100
+
+    HTML code:	#E2636A
+    RGB code:	R: 226 G: 99 B: 106
+
+    HTML code:	#C1678C
+    RGB code:	R: 193 G: 103 B: 140
+
+    HTML code:	#996C93
+    RGB code:	R: 153 G: 108 B: 147
+*/
+
