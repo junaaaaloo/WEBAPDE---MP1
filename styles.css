@@ -168,6 +168,7 @@
     left: 0;
     right: 0;
     opacity: 0.7;
+    width: 80%;
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -176,14 +177,13 @@
 }
 
 .post {
-    width: 500px;
     height: 220px;
     flex-grow: 1;
 }
 
 
 .post:hover {
-    width: 510px;
+    width: 85%;
     height: 230px;
     opacity: 0.95;
 }
@@ -364,6 +364,18 @@
         transition: width 0.5s;
     }
     
+    #title {
+        font-size: 40px;
+    }
+    
+    #topNavigationBar {
+        height: 100px;
+    }
+    
+    #wholePanel {
+        top: 0px;
+    }
+    
     #topNavigationBarContainer {
         position: fixed;
         bottom: 0px;
@@ -375,7 +387,7 @@
     }
     
     #searchMessage {
-        top: 100px;
+        top: 50px;
     }
 }
 
