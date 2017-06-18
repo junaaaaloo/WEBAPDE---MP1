@@ -356,7 +356,7 @@
     height: 50px;
 }
 
-@media screen and (max-height: 650px) {
+@media screen and (max-height: 600px) {
     .post .content {
         position: absolute;
         top: 10px;
@@ -395,7 +395,7 @@
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 620px) {
     #topNavigationBarContainer .navIconText {
         visibility: hidden;
     }
