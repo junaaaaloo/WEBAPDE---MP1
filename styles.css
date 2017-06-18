@@ -356,10 +356,6 @@
     height: 50px;
 }
 
-@viewport, @-ms-viewport {
-    width: device-width;
-    height: device-height;
-}
 @media screen and (max-height: 600px) {
     .post .content {
         position: absolute;
@@ -398,8 +394,11 @@
         width: 75%;
     }
 }
+@media only screen and (max-width: 320px) {
+    
+}
 
-@media screen and (max-width: 620px) {
+@media only screen and (max-width: 620px) {
     #topNavigationBarContainer .navIconText {
         visibility: hidden;
     }
