@@ -168,7 +168,7 @@
     left: 0;
     right: 0;
     opacity: 0.7;
-    width: 80%;
+    width: 500px;
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -183,7 +183,7 @@
 
 
 .post:hover {
-    width: 85%;
+    width: 510px;
     height: 230px;
     opacity: 0.95;
 }
@@ -194,12 +194,14 @@
 }
 
 .post .picture {
+    position: absolute;
+    background: url(resources/spritesheet.png);
     left: 15px;
     top: 15px;
-    background-size: 750px 600px;
-    background-position: 300px 600px;
-    width: 150px;
-    height: 150px;
+    background-size: 250px 200px;
+    background-position: 100px 200px;
+    width: 50px;
+    height: 50px;
 }
 
 .user .picture {
@@ -224,20 +226,11 @@
 
 .post .content { 
     position: absolute;
-    height: 150px;
-    top: 15px;
+    height: 140px;
+    top: 70px;
     border-radius: 20px;
-    left: 170px;
-    right: 15px;
-}
-
-
-.post .details {
-    position: absolute;
-    height: 30px;
-    bottom: 15px;
-    right: 15px;
     left: 15px;
+    right: 15px;
 }
 
 .imagePost {
@@ -352,7 +345,57 @@
     cursor: default;
 }
 
-@media screen and (max-width: 650px) {
+.post .picture:hover {
+    position: absolute;
+    background: url(resources/spritesheet.png);
+    left: 15px;
+    top: 15px;
+    background-size: 250px 200px;
+    background-position: 100px 200px;
+    width: 50px;
+    height: 50px;
+}
+
+@media screen and (max-height: 650px) {
+    .post .content {
+        position: absolute;
+        top: 10px;
+        left: 70px;
+        right: 10px;
+        height: 80%;
+    }
+    
+    .post {
+        width: 80%;
+        height: 150px;
+    }
+    
+    .post:hover {
+        width: 85%;
+        height: 160px;
+    }
+    
+    .user .picture {
+        position: absolute;
+        background: url(resources/spritesheet.png);
+        left: 15px;
+        top: 15px;
+        background-size: 250px 200px;
+        background-position: 100px 200px;
+        width: 50px;
+        height: 50px;
+    }
+    
+    .user {
+        width: 70%;
+    }
+    
+    .user:hover {
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
     #topNavigationBarContainer .navIconText {
         visibility: hidden;
     }
