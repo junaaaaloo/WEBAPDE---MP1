@@ -356,6 +356,10 @@
     height: 50px;
 }
 
+@viewport, @-ms-viewport {
+    width: device-width;
+    height: device-height;
+}
 @media screen and (max-height: 600px) {
     .post .content {
         position: absolute;
