@@ -5,6 +5,7 @@ var photoCnt = 0;
 $(document).ready(function () {
     getRecentPosts(postCnt);
     getRecentImages(photoCnt);
+    goToProfile(1);
 });
 
 function getAllUsers () {
@@ -115,6 +116,56 @@ function getRecentImages (start) {
             }
             photoCnt = i;
         }
+    });
+}
+
+function goToProfile(id) {
+    $.ajax({
+      url: root + '/users',
+      method: 'GET'
+    }).then(function(data) {
+        for(i = 0; i < data.length; i++)
+        {
+            if(id == data[i].id)
+            {
+                var name = document.createElement("span");
+                $(name).addClass("name");
+                var username = document.createElement("span");
+                $(username).addClass("username");
+                var email = document.createElement("span");
+                $(email).addClass("email");
+                var address = document.createElement("span");
+                $(address).addClass("address");
+                var phone = document.createElement("span");
+                $(phone).addClass("phone");
+                var website = document.createElement("span");
+                $(website).addClass("website");
+                var company = document.createElement("span");
+                $(company).addClass("company");
+                
+                $('.profileBoxImportant').append(name);
+                $('.profileBoxImportant').append('<br>');
+                $('.profileBoxImportant').append(username);
+                $('.profileBoxImportant').append('<br>');
+                $('.profileBoxImportant').append(email);
+                $('.profileBoxImportant').append('<br>');
+                $('.profileBoxImportant').append(address);
+                $('.profileBoxImportant').append('<br>');
+                $('.profileBoxImportant').append(phone);
+                $('.profileBoxImportant').append('<br>');
+                $('.profileBoxImportant').append(website);
+                $('.profileBoxImportant').append('<br>');
+                $('.profileBoxImportant').append(company);
+                
+                name.innerHTML = data[i].name;
+                username.innerHTML = "@" + data[i].username;
+                email.innerHTML = data[i].email;
+                address.innerHTML = data[i].address.street + " " + data[i].address.suite + " " + data[i].address.city + " " + data[i].address.zipcode;
+                phone.innerHTML = data[i].phone;
+                website.innerHTML = data[i].website;
+                company.innerHTML = data[i].company.name + " " + data[i].company.catchPhrase + " " + data[i].company.bs;
+             }
+        } 
     });
 }
 
