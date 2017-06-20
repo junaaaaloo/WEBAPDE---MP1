@@ -1,6 +1,8 @@
 var root = 'https://jsonplaceholder.typicode.com';
+var postCnt = 0;
 $(document).ready(function () {
-     getRecentPosts(0);
+     getRecentPosts(postCnt);
+
 });
 
 function getAllUsers () {
@@ -17,45 +19,48 @@ function getRecentPosts (start) {
       url: root + '/posts',
       method: 'GET'
     }).then(function(data) {
-      for(i = start; i<= (start + 9); i++)
-        {
-            var post = document.createElement("div");
-            $(post).addClass("post");
-            var picture = document.createElement("div");
-            $(picture).addClass("picture");
-            var pTitle = document.createElement("span");
-            $(pTitle).addClass("postTitle");
-            var contentPost = document.createElement("span");
-            $(contentPost).addClass("contentPost");
-            var contentArea = document.createElement("div");
-            $(contentArea).addClass("contentArea");
-            
-            $(post).append(picture);
-            $(post).append(pTitle);
-            $(post).append(contentArea);
-            $(contentArea).append(contentPost);
-            $("#postContainer").append(post);
+        if(data.length != start) {
+            for(i = start; i<= (start + 9); i++)
+            {
+                var post = document.createElement("div");
+                $(post).addClass("post");
+                var picture = document.createElement("div");
+                $(picture).addClass("picture");
+                var pTitle = document.createElement("span");
+                $(pTitle).addClass("postTitle");
+                var contentPost = document.createElement("span");
+                $(contentPost).addClass("contentPost");
+                var contentArea = document.createElement("div");
+                $(contentArea).addClass("contentArea");
+                var name = document.createElement("span");
+                $(name).addClass("name");
+                var username = document.createElement("span");
+                $(username).addClass("username");
 
-            contentPost.innerHTML = data[i].body;
-            pTitle.innerHTML = data[i].title;
-            
-            var name = document.createElement("span");
-            $(name).addClass("name");
-            var username = document.createElement("span");
-            $(username).addClass("username");
-            
-            $(post).append(name);
-            $(post).append(username);
-            name.innerHTML = getName(data[i].userId);
-            console.log(name.innerHTML);
-            
-            username.innerHTML = getUsername(data[i].userId);
-            
+                $(post).append(picture);
+                $(post).append(pTitle);
+                var br =document.createElement("br");
+                $(post).append(br);
+                $(post).append(name);
+                $(post).append(username);
+                $(post).append(contentArea);
+                $(contentArea).append(contentPost);
+                $("#postContainer").append(post);
+
+                contentPost.innerHTML = data[i].body;
+                pTitle.innerHTML = data[i].title;
+                setName(data[i].userId, name);
+                setUsername(data[i].userId, username);
+            }
+            postCnt = i;
+        } else {
+            $('#moreMessage').hide();
         }
+      
     });
 }
 
-function getName(id)
+function setName(id, name)
 {
     $.ajax({
       url: root + '/users',
@@ -64,20 +69,23 @@ function getName(id)
         for(i = 0; i < data.length; i++)
         {
             if(id == data[i].id)
-                return data[i].name;
+                name.innerHTML = data[i].name;
         } 
     });
 }
 
-function getUsername(id)
+function setUsername(id, username)
 {
-    return 0;
-//    var users = getAllUsers();
-//    for(i = 0; i < users.length; i++)
-//    {
-//        if(id == users[i].id)
-//            return users[i].username;
-//    }
+    $.ajax({
+      url: root + '/users',
+      method: 'GET'
+    }).then(function(data) {
+        for(i = 0; i < data.length; i++)
+        {
+            if(id == data[i].id)
+                username.innerHTML = "@" + data[i].username;
+        } 
+    });
 }
 
 function getRecentAlbums () {
