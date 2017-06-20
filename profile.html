@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title> SPECTRE: Users </title>
+        <link rel = "stylesheet" href = "styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <script src = "libraries/jquery-min.js"> </script>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale = 1.0">
+    </head>
+    <script src = "script.js"> </script>
+    
+    <body>
+        <div id = "background"> 
+        
+        </div>
+        
+        <div id = "viewport"> 
+            <div id = "topNavigationBar">
+                <div id = "title"> 
+                    SPECTRE
+                </div>
+                
+                <ul id = "topNavigationBarContainer">
+                    <li class = "navIcon" data-message = "Posts" data-container = "postContainer"> 
+                        <a href = "index.html">
+                            <div class = "navLinkIcon" id = "home"> </div> 
+                            <div class = "navIconText"> POSTS </div> 
+                        </a>
+                    </li>
+                    <li class = "navIcon" data-message = "Images" data-container = "imageContainer"> 
+                        <a href = "images.html">
+                            <div class = "navLinkIcon" id = "images"> </div> 
+                            <div class = "navIconText"> IMAGES </div>
+                        </a>
+                    </li>
+                    <li class = "navIcon" data-message = "Albums" data-container = "albumContainer"> 
+                        <a href = "albums.html">
+                            <div class = "navLinkIcon" id = "albums"> </div> 
+                            <div class = "navIconText"> ALBUMS </div>  
+                        </a>
+                    </li>
+                    <li class = "navIcon" data-message = "Users" data-container = "userContainer"> 
+                        <a href = "users.html">
+                            <div class = "navLinkIcon" id = "users"> </div> 
+                            <div class = "navIconText"> USERS </div> 
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div id = "wholePanel"> 
+                <div class = "container">
+                    <div class = "profile">
+                        <div class = "image"> </div>
+
+                        <div class = "profileBoxImportant"> 
+                            <span class = "name"> Name </span> <br>
+                            <span class = "username"> @username </span> <br>
+                            <span class = "email"> Email  </span> <br>
+                            <span class = "address"> Address </span> <br>
+                            <span class = "phone"> Phone </span> <br>
+                            <span class = "company"> Company </span>
+                        </div>
+                        
+                        <div class = "postsProfileContainer"> 
+                        
+                        </div>
+                        
+                        <div class = "albumsProfileContainer">
+                            <div class = "album">
+                            
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

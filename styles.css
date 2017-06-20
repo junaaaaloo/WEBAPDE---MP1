@@ -8,11 +8,9 @@
 	right: 0;
     
     background-size:     cover;
-    background-repeat:   no-repeat;
-    background-position: center center;   
+    background-position: center;   
     background-image: url("resources/bg-crystal.png");
-    /*filter: blur(2px);*/
-    background-repeat: no-repeat;
+    filter: blur(2px);
     
     height:100%;
     width:100%;
@@ -45,6 +43,7 @@
     right: 0;
     margin: 0 auto;
     top: 60px;
+    opacity: 1.0;
     position: absolute;
     font-weight: bolder;
 }
@@ -206,16 +205,12 @@
 .post .name {
     font-weight: bolder;
     font-size: 18px;
-    padding-left: 10px;
-    padding-right: 10px;
     margin-left: 80px;
 }
 
 .post .username {
     font-weight: lighter;
     font-size: 17px;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 
 .post .contentPost {
@@ -273,8 +268,8 @@
     text-align: center;
     width: 150px;
     height: 150px;
-    margin: 10px auto;
-    padding: 10px;
+    margin: 20px auto;
+    padding: 0px;
     opacity: 0.70;
     transition: opacity 0.5s, width 0.5s, height 0.5s;
 }
@@ -424,7 +419,7 @@
     }
     
     .post .postTitle {
-        font-size: 28px;
+        font-size: 26px;
         padding-top: 5px;
         padding-left: 80px;
     }
@@ -432,16 +427,12 @@
     .post .name {
         font-weight: bolder;
         font-size: 18px;
-        padding-left: 10px;
-        padding-right: 10px;
         margin-left: 80px;
     }
 
     .post .username {
         font-weight: lighter;
         font-size: 16px;
-        padding-left: 10px;
-        padding-right: 10px;
     }
 
     .post .contentPost {
