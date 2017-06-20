@@ -1,8 +1,10 @@
 var root = 'https://jsonplaceholder.typicode.com';
 var postCnt = 0;
-$(document).ready(function () {
-     getRecentPosts(postCnt);
+var photoCnt = 0;
 
+$(document).ready(function () {
+    getRecentPosts(postCnt);
+    getRecentImages(photoCnt);
 });
 
 function getAllUsers () {
@@ -20,7 +22,7 @@ function getRecentPosts (start) {
       method: 'GET'
     }).then(function(data) {
         if(data.length != start) {
-            for(i = start; i<= (start + 9); i++)
+            for(i = start; i< (start + 9); i++)
             {
                 var post = document.createElement("div");
                 $(post).addClass("post");
@@ -92,8 +94,28 @@ function getRecentAlbums () {
     
 }
 
-function getRecentImages () {
-    
+function getRecentImages (start) {
+    $.ajax({
+      url: root + '/photos',
+      method: 'GET'
+    }).then(function(data) {
+        if(photoCnt != data.length)
+        {
+            for(i = start; i < (start + 9); i++)
+            {
+                var imagePost = document.createElement("div");
+                $(imagePost).addClass("imagePost");
+                var imageContent = document.createElement("div");
+                $(imageContent).addClass("imageContent");
+                
+                $('#imageContainer').append(imagePost);
+                $(imagePost).append(imageContent);
+                
+                $(imageContent).css("background-image", "url(" + data[i].thumbnailUrl + ")");
+            }
+            photoCnt = i;
+        }
+    });
 }
 
 function getCommentsOfPost (postId) {
