@@ -104,39 +104,58 @@ function getRandomColorRGB () {
 }
 
 function getRecentAlbums (start) {
-    for(var i = start; i < (start + 5); i++) {
-        var albumName = document.createElement('p');
-        albumName.innerHTML = "album title";
-        
-        var albumPost = document.createElement('div');
+    //albumName->albumPost
+    //imageContent->imagePost->albumPost->#albumContainer
     
-        $(albumPost).addClass('album');
-        $(albumName).addClass('albumTitle')
+    $.ajax({
+        url: root + '/albums',
+        method: 'GET'
+    }).then(function(data){
+        for(var i = start; i < (start + 5); i++) {
+            var albumName = document.createElement('p');
+            albumName.innerHTML = "album title";
         
-        $(albumPost).append(albumName);
+            var albumPost = document.createElement('div');
+    
+            $(albumPost).addClass('album');
+            $(albumName).addClass('albumTitle')
         
+            albumName.innerHTML = "" + data[i].title;
+            $(albumPost).append(albumName);
         
-        for (var j = 0; j < 5; j++) {    
+            setAlbumImages(data[i].id, albumPost)
+            
+            $('#albumContainer').append(albumPost);
+
+        }   
+        albumCnt = i;
+    });   
+}
+
+function setAlbumImages(id, albumPost)
+{
+    $.ajax({
+        url: root + '/photos',
+        method: 'GET'
+    }).then(function(data){
+        for (var j = (id-1)*50; j < (id*50); j++) {    
             var imagePost = document.createElement('div');
             var imageContent = document.createElement('div');
             
             $(imagePost).addClass('imagePost');
-            $(imageContent).addClass('imageContent');            
+            $(imageContent).addClass('imageContent');  
+            $(imageContent).css("background-image", "url(" + data[j].thumbnailUrl + ")");
             
             $(imagePost).append(imageContent);
             $(albumPost).append(imagePost);
             
             var rand = (Math.random() * 10) - 5;
             $(imagePost).css("transform", "rotate(" + rand + "deg)");
-        
         }
         
-        
-        
-        $('#albumContainer').append(albumPost);
-
-    }
+    });
 }
+
 
 function getRecentImages (start) {
     $.ajax({
