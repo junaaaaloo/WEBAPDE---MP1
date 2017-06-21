@@ -7,19 +7,22 @@
         <script src = "libraries/jquery-min.js"> </script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <script src = "script.js"> </script>
+    <script src = "scripts/posts.js"> </script>
     
     <body>
         <div id = "background"> 
         
         </div>
         
-        <div id = "viewport"> 
+        <div id = "viewport">
+            <div id = "navigationBarBackground"> 
+                
+            </div>
             <div id = "topNavigationBar">
                 <div id = "title"> 
                     SPECTRE
                 </div>
-                
+            
                 <ul id = "topNavigationBarContainer">
                     <li class = "navIcon active"> 
                         <a href = "index.html">
@@ -60,7 +63,7 @@
                 </div>
                 
                 <div class = "messageContainer" id = "moreMessage">
-                    <a class = "more" onclick = "getRecentPosts(postCnt)">
+                    <a class = "more" onclick = "getRecentPosts(postsCount)">
                         VIEW MORE
                     </a>
                 </div>
