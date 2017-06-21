@@ -41,8 +41,12 @@ function getRecentPosts (start) {
                 var username = document.createElement("span");
                 $(username).addClass("username");
             
-                name.onclick(goToProfile(data[i].userId));
-                username.onclick(goToProfile(data[i].userId));
+                name.click(function () {
+                    goToProfile(data[i].userId)
+                });
+                username.click(function () {
+                    goToProfile(data[i].userId)
+                });
                 
                 $(post).append(picture);
                 $(post).append(pTitle);
@@ -100,11 +104,18 @@ function getRandomColorRGB () {
 }
 
 function getRecentAlbums (start) {
-    for(var i = start; i < (start + 10); i++) {
+    for(var i = start; i < (start + 5); i++) {
+        var albumName = document.createElement('p');
+        albumName.innerHTML = "album title";
+        
         var albumPost = document.createElement('div');
     
         $(albumPost).addClass('album');
-
+        $(albumName).addClass('albumTitle')
+        
+        $(albumPost).append(albumName);
+        
+        
         for (var j = 0; j < 5; j++) {    
             var imagePost = document.createElement('div');
             var imageContent = document.createElement('div');
@@ -117,14 +128,13 @@ function getRecentAlbums (start) {
             
             var rand = (Math.random() * 10) - 5;
             $(imagePost).css("transform", "rotate(" + rand + "deg)");
-            $(imagePost).css("background-color", getRandomColorRGB);
         
         }
         
+        
+        
         $('#albumContainer').append(albumPost);
-        $(albumPost).click(function() {
-            this.childNodes
-        });
+
     }
 }
 
@@ -146,7 +156,7 @@ function getRecentImages (start) {
                 $(imagePost).append(imageContent);
                 
                 $(imageContent).css("background-image", "url(" + data[i].thumbnailUrl + ")");
-                var rand = (Math.random() * 20) - 40;
+                var rand = (Math.random() * 10) - 5;
                 $(imagePost).css("transform", "rotate(" + rand + "deg)");
             }
             

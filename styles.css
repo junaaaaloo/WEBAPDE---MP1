@@ -231,12 +231,6 @@
 
 .album {
     position: relative;
-    height: 200px;
-    widows: 200px;
-}
-
-.imagePost {
-    position: absolute;
 }
 
 .post .picture {
@@ -287,7 +281,6 @@
     text-align: center;
 }
 
-.image
 .imageContent {
     width: 100%;
     margin: auto;
@@ -385,7 +378,7 @@
 }
 
 .album {
-    background-color: black;
+    background-color: lightblue;
 }
 /* ------------ MEDIA QUERIES ------------ */
 @media screen and (max-height: 600px) {
