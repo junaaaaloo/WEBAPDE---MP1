@@ -1,62 +1,128 @@
 var root = 'https://jsonplaceholder.typicode.com';
 var map;
 var marker;
+var userPostCnt = 0;
+var userAlbumCnt = 0;
+
 $(function() {
     var string = window.location.href;
     var url = new URL(string);
     var userID = url.searchParams.get("userId");
-    goToProfile(userID);
+    goToProfile(userID, userPostCnt);
 })
 
-function goToProfile (id) {
+function goToProfile (id, postNum) {
     $.ajax({
       url: root + '/users',
       method: 'GET'
     }).then(function(data) {
-        for(i = 0; i < data.length; i++)
-        {
-            if(id == data[i].id)
+        id -= 1;
+        var name = document.createElement("p");
+        var username = document.createElement("p");
+        var email = document.createElement("p");
+        var address = document.createElement("p");
+        var phone = document.createElement("p");
+        var website = document.createElement("p");
+        var company = document.createElement("p");
+
+        $(name).addClass("name");
+        $(username).addClass("username");
+        $(email).addClass("email");
+        $(address).addClass("address");
+        $(phone).addClass("phone");
+        $(website).addClass("website");
+        $(company).addClass("company");
+
+        $('.profileBoxImportant').append(name);
+        $('.profileBoxImportant').append(username);
+        $('.profileBoxImportant').append(email);
+        $('.profileBoxImportant').append(address);
+        $('.profileBoxImportant').append(phone);
+        $('.profileBoxImportant').append(website);
+        $('.profileBoxImportant').append(company);
+
+        name.innerHTML = data[id].name;
+        username.innerHTML = "@" + data[id].username;
+        email.innerHTML = data[id].email;
+        address.innerHTML = data[id].address.street + " " + data[id].address.suite + " " + data[id].address.city + " " + data[id].address.zipcode;
+        phone.innerHTML = data[id].phone;
+        website.innerHTML = data[id].website;
+        company.innerHTML = data[id].company.name + " " + data[id].company.catchPhrase + " " + data[id].company.bs;
+        map.setCenter(new google.maps.LatLng(data[id].address.geo.lat, data[id].address.geo.lng));
+        marker.setPosition(new google.maps.LatLng(data[id].address.geo.lat, data[id].address.geo.lng));
+        getPostsOfUser(data[id], postNum); 
+        getAlbums(data[id], userAlbumCnt);
+    });
+}
+
+function getPostsOfUser(user, start) {
+    $.ajax({
+      url: root + '/posts?userId=' + user.id ,
+      method: 'GET'
+    }).then(function(data) {
+        if(data.length != start){
+            for(i = start; i < (start +5); i++)
             {
-                var name = document.createElement("p");
-                var username = document.createElement("p");
-                var email = document.createElement("p");
-                var address = document.createElement("p");
-                var phone = document.createElement("p");
-                var website = document.createElement("p");
-                var company = document.createElement("p");                
+                var post = document.createElement("div");
+                var picture = document.createElement("div");
+                var pTitle = document.createElement("p");
+                var contentPost = document.createElement("span");
+                var contentArea = document.createElement("div");
+
+                $(post).addClass("post");
+                $(picture).addClass("picture");
+                $(pTitle).addClass("postTitle");
+                $(contentPost).addClass("contentPost");
+                $(contentArea).addClass("contentArea");
+
+                $(post).append(picture);
+                $(post).append(pTitle);
+                $(post).append(contentArea);
+                $(contentArea).append(contentPost);
+                $(".postsProfileContainer").append(post);
+
+                contentPost.innerHTML = data[i].body;
+                pTitle.innerHTML = data[i].title;
+            }
+            userPostCnt = i;
+            $('.more').click(function(e) {
+               getPostsOfUser(user, userPostCnt); 
+            });
+        }
+        else{
+            $('.more').hide();
+        }
+    });
+}
+
+
+function getAlbums(user, start) {
+    $.ajax({
+        url: root + '/albums?userId=' + user.id,
+        method: 'GET'
+    }).then(function(data){
+        if(data.length != userAlbumCnt) {
+            for(var i = start; i < (start + 5); i++) {
+                var albumName = document.createElement('p');
+                var albumPost = document.createElement('div');
+
+                $(albumPost).addClass('album');
+                $(albumName).addClass('albumTitle');
                 
-                $(name).addClass("name");
-                $(username).addClass("username");
-                $(email).addClass("email");
-                $(address).addClass("address");
-                $(phone).addClass("phone");
-                $(website).addClass("website");
-                $(company).addClass("company");
-                
-                $('.profileBoxImportant').append(name);
-                $('.profileBoxImportant').append(username);
-                $('.profileBoxImportant').append(email);
-                $('.profileBoxImportant').append(address);
-                $('.profileBoxImportant').append(phone);
-                $('.profileBoxImportant').append(website);
-                $('.profileBoxImportant').append(company);
-                
-                
-                name.innerHTML = data[i].name;
-                username.innerHTML = "@" + data[i].username;
-                email.innerHTML = data[i].email;
-                address.innerHTML = data[i].address.street + " " + data[i].address.suite + " " + data[i].address.city + " " + data[i].address.zipcode;
-                phone.innerHTML = data[i].phone;
-                website.innerHTML = data[i].website;
-                console.log(data[i].address.geo.lat + " " + data[i].address.geo.lng);
-                map.setCenter(new google.maps.LatLng(data[i].address.geo.lat, data[i].address.geo.lng));
-                marker.setPosition(new google.maps.LatLng(data[i].address.geo.lat, data[i].address.geo.lng));
-                company.innerHTML = data[i].company.name + " " + data[i].company.catchPhrase + " " + data[i].company.bs;
-                
-                marker.setMap(map)
-                getPostsOfUser(data[i]);
-             }
-        } 
+                $(albumPost).append(albumName);
+                $('.albumsProfileContainer').append(albumPost);
+                albumName.innerHTML = data[i].title;
+                setAlbumThumbnail(data[i].id, albumPost);
+            }
+        
+            userAlbumCnt = i;
+            
+        $('.moreAlbum').click(function(e) {
+               getAlbums(user, userAlbumCnt);
+            });
+        } else {
+            $('.moreAlbum').hide();
+        }
     });
 }
 
@@ -77,34 +143,22 @@ function geoLocationOfUser () {
     marker.setMap(map);
 }
 
-function getPostsOfUser(user) {
+function setAlbumThumbnail(id, albumPost)
+{
     $.ajax({
-      url: root + '/posts?userId=' + user.id ,
-      method: 'GET'
-    }).then(function(data) {
-        for(i = 0; i < data.length; i++)
-        {
-            var post = document.createElement("div");
-            var picture = document.createElement("div");
-            var pTitle = document.createElement("p");
-            var contentPost = document.createElement("span");
-            var contentArea = document.createElement("div");
-                        
-            $(post).addClass("post");
-            $(picture).addClass("picture");
-            $(pTitle).addClass("postTitle");
-            $(contentPost).addClass("contentPost");
-            $(contentArea).addClass("contentArea");
-            
-            $(post).append(picture);
-            $(post).append(pTitle);
-            $(post).append('<br>');
-            $(post).append(contentArea);
-            $(contentArea).append(contentPost);
-            $(".postsProfileContainer").append(post);
-
-            contentPost.innerHTML = data[i].body;
-            pTitle.innerHTML = data[i].title;
-        } 
+        url: root + '/photos?albumId=' + id,
+        method: 'GET'
+        }).then(function(data){
+            var i = Math.floor((Math.random() * 50) + 1);
+        
+            var imagePost = document.createElement('div');
+            var imageContent = document.createElement('div');
+        
+            $(imagePost).addClass('imagePost');
+            $(imageContent).addClass('imageContent');
+            $(imageContent).css("background-image", "url(" + data[i].thumbnailUrl + ")");
+        
+            $(imagePost).append(imageContent);
+            $(albumPost).append(imagePost);
     });
 }
