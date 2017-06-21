@@ -196,31 +196,22 @@ function getPostsOfUser(user)
             $(post).addClass("post");
             var picture = document.createElement("div");
             $(picture).addClass("picture");
-            var pTitle = document.createElement("span");
+            var pTitle = document.createElement("p");
             $(pTitle).addClass("postTitle");
             var contentPost = document.createElement("span");
             $(contentPost).addClass("contentPost");
             var contentArea = document.createElement("div");
             $(contentArea).addClass("contentArea");
-            var name = document.createElement("span");
-            $(name).addClass("name");
-            var username = document.createElement("span");
-            $(username).addClass("username");
 
             $(post).append(picture);
             $(post).append(pTitle);
-            var br =document.createElement("br");
-            $(post).append(br);
-            $(post).append(name);
-            $(post).append(username);
+            $(post).append('<br>');
             $(post).append(contentArea);
             $(contentArea).append(contentPost);
             $(".postsProfileContainer").append(post);
 
             contentPost.innerHTML = data[i].body;
             pTitle.innerHTML = data[i].title;
-            setName(data[i].userId, name);
-            setUsername(data[i].userId, username);
         } 
     });
 }
