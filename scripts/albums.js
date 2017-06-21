@@ -4,6 +4,7 @@ var albumsCount = 0;
 $(function() {
     getRecentAlbums(albumsCount);
 })
+
 function getRecentAlbums (start) {
     $.ajax({
         url: root + '/albums',
@@ -22,8 +23,7 @@ function getRecentAlbums (start) {
                 albumName.innerHTML = "" + data[i].title;
                 $(albumPost).append(albumName);
 
-                setAlbumImages(data[i].id, albumPost)
-
+                setAlbumImages(data[i].id, albumPost);
                 $('#albumContainer').append(albumPost);
             }
             
@@ -54,7 +54,7 @@ function setAlbumImages(id, albumPost)
             $(imagePost).append(imageContent);
             $(albumPost).append(imagePost);
             
-            var rand = (Math.random() * 10) - 5;
+            var rand = (Math.random() * 40) - 20;
             $(imagePost).css("transform", "rotate(" + rand + "deg)");
         }
         

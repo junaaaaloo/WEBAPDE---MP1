@@ -5,9 +5,9 @@
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <script src = "libraries/jquery-min.js"> </script>
+        <script src = "scripts/profile.js"> </script>
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale = 1.0">
     </head>
-    <script src = "scripts/profile.js"> </script>
     
     <body>
         <div id = "background"> 
@@ -54,7 +54,7 @@
                         <div class = "image"> </div>
 
                         <div class = "profileBoxImportant"> 
-
+                            <div id = "addressMap"> </div>
                         </div>
                         
                         <div class = "postsProfileContainer"> 
@@ -72,5 +72,7 @@
                 </div>
             </div>
         </div>
+        
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAA1A5dg4FK2pupnrA1oqsNd_t6G4mUswo&callback=geoLocationOfUser"></script>
     </body>
 </html>
