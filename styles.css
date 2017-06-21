@@ -229,6 +229,16 @@
     background: url(resources/spritesheet.png);
 }
 
+.album {
+    position: relative;
+    height: 200px;
+    widows: 200px;
+}
+
+.imagePost {
+    position: absolute;
+}
+
 .post .picture {
     position: relative;
     background: url(resources/spritesheet.png);
@@ -277,10 +287,12 @@
     text-align: center;
 }
 
+.image
 .imageContent {
     width: 100%;
     margin: auto;
     cursor: pointer;
+    position: relative;
     background-repeat: no-repeat;
     height: 100%;
 }
@@ -372,21 +384,17 @@
     float: right;
 }
 
+.album {
+    background-color: black;
+}
 /* ------------ MEDIA QUERIES ------------ */
 @media screen and (max-height: 600px) {
-    .user .picture {
-        position: absolute;
-        background: url(resources/spritesheet.png);
-        left: 15px;
-        top: 15px;
-        background-size: 250px 200px;
-        background-position: 100px 200px;
-        width: 50px;
-        height: 50px;
-    }
-    
     #imageContainer {
         display: block;
+    }
+    
+    .imagePost {
+        transform: none;
     }
     
     .user {

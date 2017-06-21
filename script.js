@@ -1,11 +1,12 @@
 var root = 'https://jsonplaceholder.typicode.com';
 var postCnt = 0;
 var photoCnt = 0;
+var albumCnt = 0;
 
 $(document).ready(function () {
     getRecentPosts(postCnt);
     getRecentImages(photoCnt);
-    goToProfile(1);
+    getRecentAlbums(albumCnt);
 });
 
 function getAllUsers () {
@@ -15,10 +16,6 @@ function getAllUsers () {
     }).then(function(data) {
         
     });
-}
-
-function redirectToUserPage (userId) {
-    console.log(userId);
 }
 
 function getRecentPosts (start) {
@@ -43,7 +40,10 @@ function getRecentPosts (start) {
                 $(name).addClass("name");
                 var username = document.createElement("span");
                 $(username).addClass("username");
-
+            
+                name.onclick(goToProfile(data[i].userId));
+                username.onclick(goToProfile(data[i].userId));
+                
                 $(post).append(picture);
                 $(post).append(pTitle);
                 $(post).append(name);
@@ -88,8 +88,44 @@ function setUsername(id, username)
     });
 }
 
-function getRecentAlbums () {
+function getRandomColorRGB () {
+    var r = Math.floor(Math.random() * 255)
+    var g = Math.floor(Math.random() * 255)
+    var b = Math.floor(Math.random() * 255)
+
+    if (r == 0 && g == 0 && b == 0)
+        return getRandomColor();
+    else 
+        return "rgb(" + r + ", " + g + ", " + b + ")";
+}
+
+function getRecentAlbums (start) {
+    for(var i = start; i < (start + 10); i++) {
+        var albumPost = document.createElement('div');
     
+        $(albumPost).addClass('album');
+
+        for (var j = 0; j < 5; j++) {    
+            var imagePost = document.createElement('div');
+            var imageContent = document.createElement('div');
+            
+            $(imagePost).addClass('imagePost');
+            $(imageContent).addClass('imageContent');            
+            
+            $(imagePost).append(imageContent);
+            $(albumPost).append(imagePost);
+            
+            var rand = (Math.random() * 10) - 5;
+            $(imagePost).css("transform", "rotate(" + rand + "deg)");
+            $(imagePost).css("background-color", getRandomColorRGB);
+        
+        }
+        
+        $('#albumContainer').append(albumPost);
+        $(albumPost).click(function() {
+            this.childNodes
+        });
+    }
 }
 
 function getRecentImages (start) {
@@ -110,7 +146,7 @@ function getRecentImages (start) {
                 $(imagePost).append(imageContent);
                 
                 $(imageContent).css("background-image", "url(" + data[i].thumbnailUrl + ")");
-                var rand = (Math.random() * 10) - 5;
+                var rand = (Math.random() * 20) - 40;
                 $(imagePost).css("transform", "rotate(" + rand + "deg)");
             }
             
