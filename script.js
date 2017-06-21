@@ -74,11 +74,7 @@ function setName(id, name)
       url: root + '/users',
       method: 'GET'
     }).then(function(data) {
-        for(i = 0; i < data.length; i++)
-        {
-            if(id == data[i].id)
-                name.innerHTML = data[i].name;
-        } 
+        name.innerHTML = data[id-1].name;
     });
 }
 
@@ -88,11 +84,7 @@ function setUsername(id, username)
       url: root + '/users',
       method: 'GET'
     }).then(function(data) {
-        for(i = 0; i < data.length; i++)
-        {
-            if(id == data[i].id)
-                username.innerHTML = "@" + data[i].username;
-        } 
+        username.innerHTML = "@" + data[id-1].username; 
     });
 }
 
