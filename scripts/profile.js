@@ -1,11 +1,12 @@
 var root = 'https://jsonplaceholder.typicode.com';
 var userPostCnt = 0;
+var userAlbumCnt = 0;
 
 $(function() {
     var string = window.location.href;
     var url = new URL(string);
     var userID = url.searchParams.get("userId");
-    goToProfile(userID, userPostCnt);
+    goToProfile(1, userPostCnt);
 })
 
 function goToProfile (id, postNum) {
@@ -46,6 +47,7 @@ function goToProfile (id, postNum) {
         company.innerHTML = data[id-1].company.name + " " + data[id-1].company.catchPhrase + " " + data[id-1].company.bs;
 
         getPostsOfUser(data[id-1], postNum); 
+        getAlbums(data[id-1], userAlbumCnt);
     });
 }
 
@@ -87,5 +89,61 @@ function getPostsOfUser(user, start) {
         else{
             $('.more').hide();
         }
+    });
+}
+
+
+function getAlbums(user, start) {
+    $.ajax({
+        url: root + '/albums?userId=' + user.id,
+        method: 'GET'
+    }).then(function(data){
+        if(data.length != userAlbumCnt) {
+            for(var i = start; i < (start + 5); i++) {
+                
+                var albumName = document.createElement('p');
+                var albumPost = document.createElement('div');
+
+                $(albumPost).addClass('album');
+                $(albumName).addClass('albumTitle');
+                
+                $(albumPost).append(albumName);
+                $('.albumsProfileContainer').append(albumPost);
+                
+                albumName.innerHTML = data[i].title;
+                setAlbumThumbnail(data[i].id, albumPost);
+                
+            }
+            userAlbumCnt = i;
+            $('.moreAlbum').click(function(e) {
+               getAlbums(user, userAlbumCnt);
+            });
+        } else {
+            $('.moreAlbum').hide();
+        }
+    });
+}
+
+function setAlbumThumbnail(id, albumPost)
+{
+    $.ajax({
+        url: root + '/photos?albumId=' + id,
+        method: 'GET'
+        }).then(function(data){
+            console.log(data);
+            var i = Math.floor((Math.random() * 50) + 1);
+        
+            var imagePost = document.createElement('div');
+            var imageContent = document.createElement('div');
+        
+            $(imagePost).addClass('imagePost');
+            $(imageContent).addClass('imageContent');
+            $(imageContent).css("background-image", "url(" + data[i].thumbnailUrl + ")");
+        
+            $(imagePost).append(imageContent);
+            $(albumPost).append(imagePost);
+        
+            var rand = (Math.random() * 10) - 5;
+            $(imagePost).css("transform", "rotate(" + rand + "deg)");
     });
 }

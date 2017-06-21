@@ -22,7 +22,7 @@ function getRecentAlbums (start) {
                 albumName.innerHTML = "" + data[i].title;
                 $(albumPost).append(albumName);
 
-                setAlbumImages(data[i].id, albumPost)
+                setAlbumImages(data[i].id, albumPost);
 
                 $('#albumContainer').append(albumPost);
             }
