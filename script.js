@@ -16,19 +16,23 @@ function getAllUsers () {
     });
 }
 
+function redirectToUserPage (userId) {
+    console.log(userId);
+}
+
 function getRecentPosts (start) {
     $.ajax({
       url: root + '/posts',
       method: 'GET'
     }).then(function(data) {
         if(data.length != start) {
-            for(i = start; i< (start + 9); i++)
+            for(i = start; i < (start + 10); i++)
             {
                 var post = document.createElement("div");
                 $(post).addClass("post");
                 var picture = document.createElement("div");
                 $(picture).addClass("picture");
-                var pTitle = document.createElement("span");
+                var pTitle = document.createElement("p");
                 $(pTitle).addClass("postTitle");
                 var contentPost = document.createElement("span");
                 $(contentPost).addClass("contentPost");
@@ -41,8 +45,6 @@ function getRecentPosts (start) {
 
                 $(post).append(picture);
                 $(post).append(pTitle);
-                var br =document.createElement("br");
-                $(post).append(br);
                 $(post).append(name);
                 $(post).append(username);
                 $(post).append(contentArea);
@@ -55,6 +57,9 @@ function getRecentPosts (start) {
                 setUsername(data[i].userId, username);
             }
             postCnt = i;
+            
+            if(postCnt == data.length)
+                $('#moreMessage').hide();
         } else {
             $('#moreMessage').hide();
         }
@@ -101,7 +106,7 @@ function getRecentImages (start) {
     }).then(function(data) {
         if(photoCnt != data.length)
         {
-            for(i = start; i < (start + 9); i++)
+            for(i = start; i < (start + 10); i++)
             {
                 var imagePost = document.createElement("div");
                 $(imagePost).addClass("imagePost");
@@ -112,8 +117,16 @@ function getRecentImages (start) {
                 $(imagePost).append(imageContent);
                 
                 $(imageContent).css("background-image", "url(" + data[i].thumbnailUrl + ")");
+                var rand = (Math.random() * 10) - 5;
+                $(imagePost).css("transform", "rotate(" + rand + "deg)");
             }
+            
             photoCnt = i;
+            
+            if(photoCnt == data.length)
+                $('#moreMessage').hide();
+        } else {
+            $('#moreMessage').hide();
         }
     });
 }
