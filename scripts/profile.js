@@ -16,7 +16,7 @@ function goToProfile (id, postNum) {
       url: root + '/users',
       method: 'GET'
     }).then(function(data) {
-        id -= 1;
+        id = id - 1;
         var name = document.createElement("p");
         var username = document.createElement("p");
         var email = document.createElement("p");
@@ -60,6 +60,7 @@ function getPostsOfUser(user, start) {
       url: root + '/posts?userId=' + user.id ,
       method: 'GET'
     }).then(function(data) {
+        console.log(data);
         if(data.length != start){
             for(i = start; i < (start +5); i++)
             {
@@ -68,13 +69,15 @@ function getPostsOfUser(user, start) {
                 var pTitle = document.createElement("p");
                 var contentPost = document.createElement("span");
                 var contentArea = document.createElement("div");
-
+                
+                
                 $(post).addClass("post");
                 $(picture).addClass("picture");
                 $(pTitle).addClass("postTitle");
                 $(contentPost).addClass("contentPost");
                 $(contentArea).addClass("contentArea");
-
+                
+                
                 $(post).append(picture);
                 $(post).append(pTitle);
                 $(post).append(contentArea);
@@ -84,14 +87,11 @@ function getPostsOfUser(user, start) {
                 contentPost.innerHTML = data[i].body;
                 pTitle.innerHTML = data[i].title;
             }
-            userPostCnt = i;
-            $('.more').click(function(e) {
+            
+            $('.postsProfileContainer.moreMessage').click(function(e) {
                getPostsOfUser(user, userPostCnt); 
             });
-        }
-        else{
-            $('.more').hide();
-        }
+        } 
     });
 }
 
