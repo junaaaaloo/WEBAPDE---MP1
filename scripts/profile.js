@@ -87,11 +87,14 @@ function getPostsOfUser(user, start) {
                 contentPost.innerHTML = data[i].body;
                 pTitle.innerHTML = data[i].title;
             }
-            
-            $('.postsProfileContainer.moreMessage').click(function(e) {
+            userPostCnt = i;
+            $('.postsProfileContainer .more').click(function(e) {
                getPostsOfUser(user, userPostCnt); 
             });
-        } 
+        }
+        else {
+            $('.postsProfileContainer .more').hide();
+        }
     });
 }
 
@@ -117,11 +120,11 @@ function getAlbums(user, start) {
         
             userAlbumCnt = i;
             
-        $('.moreAlbum').click(function(e) {
-               getAlbums(user, userAlbumCnt);
+            $('.albumsProfileContainer .more').click(function(e) {
+                   getAlbums(user, userAlbumCnt);
             });
         } else {
-            $('.moreAlbum').hide();
+            $('.albumsProfileContainer .more').hide();
         }
     });
 }
