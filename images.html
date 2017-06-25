@@ -1,14 +1,18 @@
 <html>
     <head>
         <title> SPECTRE: Images </title>
+        
         <link rel = "stylesheet" href = "styles.css">
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        
         <script src = "libraries/jquery-min.js"> </script>
+        <script src = "scripts/images.js"> </script>
+        <script src = "libraries/jQueryRotate.js"> </script>
+        <script src = "libraries/jBox-0.4.7/Source/jBox.min.js"> </script>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <script src = "scripts/images.js"> </script>
-    
     <body>
         <div id = "background"> 
         
@@ -58,6 +62,7 @@
             </div>
             <div id = "wholePanel">
                 <div class = "container" id = "imageContainer" > 
+    
                 </div>
                 
                 <div class = "messageContainer" id = "moreMessage">
@@ -67,8 +72,11 @@
                 </div>
                 <div class="modalImage">
                     <span class = "closeModal"> &times; </span>
-                    <img class = "modalImageContent">
-                    <div id = "captionModal"></div>
+                    <div class = "modalImageContentContainer"> 
+                        <img class = "modalImageContent"> 
+                        <div class = "modalOverlay">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

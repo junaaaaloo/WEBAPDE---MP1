@@ -1,9 +1,36 @@
 var root = 'https://jsonplaceholder.typicode.com';
 var postsCount = 0;
 
+
 $(function () {
     getRecentPosts(postsCount);
 })
+
+function filterPosts () {
+    var value = $("#searchText").val();
+    
+    $('.postTitle').each(function(){
+        $(this).unmark();
+        if(this.innerHTML.includes(value)) {
+            $(this).parent().show();
+            $(this).mark(value);
+        } else {
+            $(this).parent().hide();
+        }
+    });
+
+    $('.contentPost').each(function(){
+        $(this).unmark();
+        if(this.innerHTML.includes(value)) {
+            $(this).parent().parent().show();
+            $(this).mark(value);
+        } else {
+            if(!$(this).is(":visible")) {
+                $(this).parent().parent().hide();
+            }
+        }
+    });
+}
 
 function getRecentPosts (start) {
     $.ajax({
@@ -43,6 +70,7 @@ function getRecentPosts (start) {
                 setName(data[i].userId, name);
                 setUsername(data[i].userId, username);
             }
+            
             postsCount = i;
             
             if(postsCount == data.length)

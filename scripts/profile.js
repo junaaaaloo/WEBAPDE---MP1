@@ -8,7 +8,9 @@ $(function() {
     var string = window.location.href;
     var url = new URL(string);
     var userID = url.searchParams.get("userId");
+    
     goToProfile(userID, userPostCnt);
+    
 })
 
 function goToProfile (id, postNum) {
@@ -17,14 +19,21 @@ function goToProfile (id, postNum) {
       method: 'GET'
     }).then(function(data) {
         id = id - 1;
-        var name = document.createElement("p");
-        var username = document.createElement("p");
-        var email = document.createElement("p");
-        var address = document.createElement("p");
-        var phone = document.createElement("p");
-        var website = document.createElement("p");
-        var company = document.createElement("p");
-
+        
+        var image = document.createElement("div");
+        var name = document.createElement("span");
+        var username = document.createElement("span");
+        var email = document.createElement("span");
+        var address = document.createElement("span");
+        var phone = document.createElement("span");
+        var website = document.createElement("span");
+        var company = document.createElement("span");
+        
+        var companyCatchPhrase = document.createElement("span");
+        var companyDescription = document.createElement("span");
+        var companyName = document.createElement("span");
+        
+        $(image).addClass("userImage");
         $(name).addClass("name");
         $(username).addClass("username");
         $(email).addClass("email");
@@ -32,14 +41,32 @@ function goToProfile (id, postNum) {
         $(phone).addClass("phone");
         $(website).addClass("website");
         $(company).addClass("company");
-
+        
+        $(companyCatchPhrase).addClass("company-phrase");
+        $(companyDescription).addClass("company-desc");
+        $(companyName).addClass("company-name")
+        
+        
+        $('.profileBoxImportant').append('<br>');
+        $('.profileBoxImportant').append(image);
+        $('.profileBoxImportant').append('<br>');
         $('.profileBoxImportant').append(name);
+        $('.profileBoxImportant').append('<br>');
         $('.profileBoxImportant').append(username);
+        $('.profileBoxImportant').append('<br>');
         $('.profileBoxImportant').append(email);
-        $('.profileBoxImportant').append(address);
+        $('.profileBoxImportant').append('<br>');
         $('.profileBoxImportant').append(phone);
+        $('.profileBoxImportant').append('<br>');
         $('.profileBoxImportant').append(website);
+        $('.profileBoxImportant').append('<br>');
         $('.profileBoxImportant').append(company);
+        $('.profileBoxImportant').append('<br>');
+        $(company).append(companyName);
+        $(company).append('<br>');
+        $(company).append(companyDescription);
+        $(company).append('<br>');
+        $(company).append(companyCatchPhrase);
 
         name.innerHTML = data[id].name;
         username.innerHTML = "@" + data[id].username;
@@ -47,9 +74,25 @@ function goToProfile (id, postNum) {
         address.innerHTML = data[id].address.street + " " + data[id].address.suite + " " + data[id].address.city + " " + data[id].address.zipcode;
         phone.innerHTML = data[id].phone;
         website.innerHTML = data[id].website;
-        company.innerHTML = data[id].company.name + " " + data[id].company.catchPhrase + " " + data[id].company.bs;
+        
+        companyName.innerHTML = data[id].company.name;
+        companyCatchPhrase.innerHTML = data[id].company.catchPhrase;
+        companyDescription.innerHTML = data[id].company.bs;
+        
         map.setCenter(new google.maps.LatLng(data[id].address.geo.lat, data[id].address.geo.lng));
         marker.setPosition(new google.maps.LatLng(data[id].address.geo.lat, data[id].address.geo.lng));
+        
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map,marker);
+        });
+        
+        var infowindow = new google.maps.InfoWindow({
+            content: "<div class = 'address'>" + address.innerHTML + "</div>",
+        });
+        
+        infowindow.open(map,marker);
+        
+        
         getPostsOfUser(data[id], postNum); 
         getAlbums(data[id], userAlbumCnt);
     });
@@ -87,11 +130,14 @@ function getPostsOfUser(user, start) {
                 contentPost.innerHTML = data[i].body;
                 pTitle.innerHTML = data[i].title;
             }
-            
-            $('.postsProfileContainer.moreMessage').click(function(e) {
+            userPostCnt = i;
+            $('.postsProfileContainer .more').click(function(e) {
                getPostsOfUser(user, userPostCnt); 
             });
-        } 
+        }
+        else{
+            $('.postsProfileContainer .more').hide();
+        }
     });
 }
 
@@ -117,11 +163,11 @@ function getAlbums(user, start) {
         
             userAlbumCnt = i;
             
-        $('.moreAlbum').click(function(e) {
+        $('.albumsProfileContainer .more').click(function(e) {
                getAlbums(user, userAlbumCnt);
             });
         } else {
-            $('.moreAlbum').hide();
+            $('.albumsProfileContainer .more').hide();
         }
     });
 }
@@ -129,18 +175,15 @@ function getAlbums(user, start) {
 function geoLocationOfUser () {
     map = new google.maps.Map(document.getElementById('addressMap'), {
         center: {lat: 0, lng: 0},
-        zoom: 4,
+        zoom: 6,
         /* source: https://snazzymaps.com/style/122/flat-map-with-labels */
-        styles: [ { "featureType": "water", "elementType": "all", "stylers": [ { "hue": "#7fc8ed" }, { "saturation": 55 }, { "lightness": -6 }, { "visibility": "on" } ] }, { "featureType": "water", "elementType": "labels", "stylers": [ { "hue": "#7fc8ed" }, { "saturation": 55 }, { "lightness": -6 }, { "visibility": "off" } ] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [ { "hue": "#83cead" }, { "saturation": 1 }, { "lightness": -15 }, { "visibility": "on" } ] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [ { "hue": "#f3f4f4" }, { "saturation": -84 }, { "lightness": 59 }, { "visibility": "on" } ] }, { "featureType": "landscape", "elementType": "labels", "stylers": [ { "hue": "#ffffff" }, { "saturation": -100 }, { "lightness": 100 }, { "visibility": "off" } ] }, { "featureType": "road", "elementType": "geometry", "stylers": [ { "hue": "#ffffff" }, { "saturation": -100 }, { "lightness": 100 }, { "visibility": "on" } ] }, { "featureType": "road", "elementType": "labels", "stylers": [ { "hue": "#bbbbbb" }, { "saturation": -100 }, { "lightness": 26 }, { "visibility": "on" } ] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [ { "hue": "#ffcc00" }, { "saturation": 100 }, { "lightness": -35 }, { "visibility": "simplified" } ] }, { "featureType": "road.highway", "elementType": "geometry", "stylers": [ { "hue": "#ffcc00" }, { "saturation": 100 }, { "lightness": -22 }, { "visibility": "on" } ] }, { "featureType": "poi.school", "elementType": "all", "stylers": [ { "hue": "#d7e4e4" }, { "saturation": -60 }, { "lightness": 23 }, { "visibility": "on" } ] } ]
-
+        styles: [ { "featureType": "water", "elementType": "all", "stylers": [ { "hue": "#7fc8ed" }, { "saturation": 55 }, { "lightness": -6 }, { "visibility": "on" } ] }, { "featureType": "water", "elementType": "labels", "stylers": [ { "hue": "#7fc8ed" }, { "saturation": 55 }, { "lightness": -6 }, { "visibility": "off" } ] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [ { "hue": "#83cead" }, { "saturation": 1 }, { "lightness": -15 }, { "visibility": "on" } ] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [ { "hue": "#f3f4f4" }, { "saturation": -84 }, { "lightness": 59 }, { "visibility": "on" } ] }, { "featureType": "landscape", "elementType": "labels", "stylers": [ { "hue": "#ffffff" }, { "saturation": -100 }, { "lightness": 100 }, { "visibility": "off" } ] }, { "featureType": "road", "elementType": "geometry", "stylers": [ { "hue": "#ffffff" }, { "saturation": -100 }, { "lightness": 100 }, { "visibility": "on" } ] }, { "featureType": "road", "elementType": "labels", "stylers": [ { "hue": "#bbbbbb" }, { "saturation": -100 }, { "lightness": 26 }, { "visibility": "on" } ] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [ { "hue": "#ffcc00" }, { "saturation": 100 }, { "lightness": -35 }, { "visibility": "simplified" } ] }, { "featureType": "road.highway", "elementType": "geometry", "stylers": [ { "hue": "#ffcc00" }, { "saturation": 100 }, { "lightness": -22 }, { "visibility": "on" } ] }, { "featureType": "poi.school", "elementType": "all", "stylers": [ { "hue": "#d7e4e4" }, { "saturation": -60 }, { "lightness": 23 }, { "visibility": "on" } ] } ],
     });
     
     marker = new google.maps.Marker({
         position: {lat: 0, lng: 0},
-        animation: google.maps.Animation.BOUNCE
+        map: map
     });
-    
-    marker.setMap(map);
 }
 
 function setAlbumThumbnail(id, albumPost)

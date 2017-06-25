@@ -5,6 +5,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <script src = "libraries/jquery-min.js"> </script>
+        <script src = "libraries/mark.js/jquery.mark.min.js"> </script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <script src = "scripts/posts.js"> </script>
@@ -48,7 +49,7 @@
                 </ul>
                 
                 <div class = "messageContainer" id = "searchMessage">
-                    <input id = "searchText" type = "text">
+                    <input id = "searchText" type = "text" oninput="filterPosts()">
                     <div id = "search">
 
                     </div>

@@ -3,6 +3,10 @@ var albumsCount = 0;
 
 $(function() {
     getRecentAlbums(albumsCount);
+    
+    var string = window.location.href;
+    var url = new URL(string);
+    var albumId = url.searchParams.get("albumId");
 })
 
 function getRecentAlbums (start) {
@@ -59,4 +63,9 @@ function setAlbumImages(id, albumPost)
         }
         
     });
+}
+
+function setThumbnails(id, album) {
+    
+    
 }
