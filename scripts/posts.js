@@ -8,12 +8,14 @@ $(function () {
 
 function filterPosts () {
     var value = $("#searchText").val();
-    
+    value = value.replace(/\s/g,'');
+    var count = 0;
     $('.postTitle').each(function(){
         $(this).unmark();
         if(this.innerHTML.includes(value)) {
             $(this).parent().show();
             $(this).mark(value);
+            count++;
         } else {
             $(this).parent().hide();
         }
@@ -22,12 +24,30 @@ function filterPosts () {
     $('.contentPost').each(function(){
         $(this).unmark();
         if(this.innerHTML.includes(value)) {
+            if(!$(this).is(":visible"))
+                count++;
             $(this).parent().parent().show();
             $(this).mark(value);
         } else {
             if(!$(this).is(":visible")) {
                 $(this).parent().parent().hide();
             }
+        }
+    });
+
+    if(value != "") 
+        notifyPosts("<span class = matches-notification> Search results for " + value + " : " + count + "/" + postsCount + " </span>");
+}
+
+function notifyPosts (value) {
+    new jBox('Notice', {
+        content: value,
+        color: 'black',
+        fontFamily: 'Lato',
+        autoClose: 3000,
+        attributes: {
+            x: 'right',
+            y: 'bottom'
         }
     });
 }

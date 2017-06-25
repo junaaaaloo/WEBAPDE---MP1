@@ -3,11 +3,7 @@ var albumsCount = 0;
 
 $(function() {
     getRecentAlbums(albumsCount);
-    
-    var string = window.location.href;
-    var url = new URL(string);
-    var albumId = url.searchParams.get("albumId");
-})
+});
 
 function getRecentAlbums (start) {
     $.ajax({
@@ -19,20 +15,20 @@ function getRecentAlbums (start) {
                 var albumName = document.createElement('p');
                 albumName.innerHTML = "album title";
 
+                var albumLink = document.createElement('a');
                 var albumPost = document.createElement('ul');
-
+                
+                $(albumLink).attr('href', 'single-album.html?albumId=' + data[i].id);
+                $(albumLink).addClass('albumLink');
                 $(albumPost).addClass('album');
                 $(albumName).addClass('albumTitle');
 
-                albumName.innerHTML = "" + data[i].title;
-                $(albumPost).append(albumName);
-
+                albumName.innerHTML = "" + data[i].title
+     
                 setThumbnailImages(data[i].id, albumPost);
-                $('#albumContainer').append(albumPost);
-                $(albumPost).hover(function () {
-                    var i = 0;
-                    $(this).css("position", "relative");
-                });
+                $('#albumContainer').append(albumLink);
+                $(albumLink).append(albumPost);
+                $(albumPost).append(albumName);
             }
             
             if(data.length == albumsCount)
@@ -52,7 +48,7 @@ function setThumbnailImages(id, albumPost)
         method: 'GET'
     }).then(function(data){
         var count = 0;
-        for (var j = (id-1)*50; j < (id*50)-46; j++) {    
+        for (var j = (id)*50-1; j > ((id-1)*50)+45; j--) {    
             var imagePost = document.createElement('li');
             var imageContent = document.createElement('img');
             

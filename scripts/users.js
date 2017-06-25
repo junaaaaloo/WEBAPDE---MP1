@@ -27,7 +27,7 @@ function getUsers(){
             $(user).append(contentArea);
             $("#userContainer").append(user);
             
-            $(user).attr('href', 'profile.html?userId=' + data[i].userId);
+            $(user).attr('href', 'profile.html?userId=' + data[i].id);
             name.innerHTML = data[i].name;
             username.innerHTML = "@" + data[i].username;
             console.log(data[i].username);

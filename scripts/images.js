@@ -15,7 +15,7 @@ function getAlbumName (window, id) {
       method: 'GET'
     }).then(function(data) {
         $(window).append("<span id = 'albumIcon' class = 'modalIcon'> </span>");
-        window.innerHTML += data[id-1].title + "<br>";
+        window.innerHTML += "<a href = single-album.html?albumId=" + (id) +" >" + data[id-1].title + "</a><br>";
         getNameUsernameWithLink(window, data[id-1].userId);
     });
 }
@@ -102,54 +102,3 @@ function getRecentImages (start) {
         }
     });
 }
-
-//
-//function getRandomColorRGB () {
-//    var r = Math.floor(Math.random() * 255)
-//    var g = Math.floor(Math.random() * 255)
-//    var b = Math.floor(Math.random() * 255)
-//
-//    if (r == 0 && g == 0 && b == 0)
-//        return getRandomColor();
-//    else 
-//        return "rgb(" + r + ", " + g + ", " + b + ")";
-//}
-//
-//
-//function getDummyImages (start) {
-//    for(i = start; i < (start + 10); i++)
-//    {
-//        var imagePost = document.createElement("div");
-//        var imageContent = document.createElement("div");
-//        var rand = (Math.random() * 10) - 5;
-//
-//        $(imagePost).attr("value", start)
-//
-//        $(imagePost).addClass("imagePost");
-//        $(imageContent).addClass("imageContent");
-//
-//        $(imageContent).css("background-color", getRandomColorRGB());      
-//        $(imagePost).rotate(rand);
-//
-//        $('#imageContainer').append(imagePost);
-//        $(imagePost).append(imageContent);
-//
-//        $(imagePost).click(function () {
-//            $(".modalImageContent").css("background-color", this.style.backgroundColor);
-//            document.getElementsByClassName("modalImageContentContainer")[0].style.height = 600;
-//            document.getElementsByClassName("modalImageContentContainer")[0].style.width = 600;
-//            document.getElementsByClassName("modalOverlay")[0].innerHTML = "<a href = '#'> Album Name </a> <br> <a href = '#'> Name </a> <a href = '#'> @username </a>"
-//            document.getElementsByClassName("modalImage")[0].style.display = "block";
-//        })
-//
-//        $('.closeModal').click(function () {
-//            document.getElementsByClassName("modalImage")[0].style.display = "none";
-//        })
-//
-//        $(document).keydown(function(event) {
-//            if(event.keyCode == 27) {
-//                document.getElementsByClassName("modalImage")[0].style.display = "none";
-//            }
-//        })
-//    }
-//}

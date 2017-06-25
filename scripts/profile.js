@@ -2,13 +2,18 @@ var root = 'https://jsonplaceholder.typicode.com';
 var map;
 var marker;
 var userPostCnt = 0;
-var userAlbumCnt = 0;
+var albumsCount = 0;
 
 $(function() {
     var string = window.location.href;
     var url = new URL(string);
     var userID = url.searchParams.get("userId");   
-    goToProfile(userID, userPostCnt);
+    if(userID != null)
+        goToProfile(userID, userPostCnt);
+    else
+        window.location.href = "users.html"
+    
+    $("#container").tabs();
     
 })
 
@@ -92,7 +97,7 @@ function goToProfile (id, postNum) {
         infowindow.open(map,marker);
         
         getPostsOfUser(data[id], postNum); 
-        getAlbums(data[id], userAlbumCnt);
+        getAlbums(data[id], albumsCount);
     });
 }
 
@@ -129,7 +134,7 @@ function getPostsOfUser(user, start) {
                 pTitle.innerHTML = data[i].title;
             }
             userPostCnt = i;
-            $('.postsProfileContainer .more').click(function(e) {
+            $('.profilePostsContainer .more').click(function(e) {
                getPostsOfUser(user, userPostCnt); 
             });
         }
@@ -140,37 +145,41 @@ function getPostsOfUser(user, start) {
     });
 }
 
-
 function getAlbums(user, start) {
-    $.ajax({
-        url: root + '/albums?userId=' + user.id,
+     $.ajax({
+        url: root + '/albums',
         method: 'GET'
     }).then(function(data){
-        if(data.length != userAlbumCnt) {
-            for(var i = start; i < (start + 5); i++) {
+        if(data.length != albumsCount) {
+            for(i = data.length - start - 1; i > (data.length - start - 11); i--) {
                 var albumName = document.createElement('p');
-                var albumPost = document.createElement('div');
+                albumName.innerHTML = "album title";
 
+                var albumLink = document.createElement('a');
+                var albumPost = document.createElement('ul');
+                
+                $(albumLink).attr('href', 'single-album.html?albumId=' + data[i].id);
+                $(albumLink).addClass('albumLink');
                 $(albumPost).addClass('album');
                 $(albumName).addClass('albumTitle');
-                
-                $(albumPost).append(albumName);
-                $('.albumsProfileContainer').append(albumPost);
-                albumName.innerHTML = data[i].title;
-                setAlbumThumbnail(data[i].id, albumPost);
-            }
-        
-            userAlbumCnt = i;
-            
-            $('.albumsProfileContainer .more').click(function(e) {
-                   getAlbums(user, userAlbumCnt);
-            });
-        } else {
-            $('.albumsProfileContainer .more').hide();
-        }
-    });
-}
 
+                albumName.innerHTML = "" + data[i].title
+     
+                setThumbnailImages(data[i].id, albumPost);
+                $('.profileAlbumsContainer').append(albumLink);
+                $(albumLink).append(albumPost);
+                $(albumPost).append(albumName);
+            }
+            
+            if(data.length == albumsCount)
+                $('#moreMessage').hide();
+        } else {
+            $('#moreMessage').hide();
+        }
+        
+        albumsCount = data.length - i - 1;
+    });   
+}
 function geoLocationOfUser () {
     map = new google.maps.Map(document.getElementById('addressMap'), {
         center: {lat: 0, lng: 0},

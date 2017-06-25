@@ -1,14 +1,22 @@
 <html>
     <head>
-        <title> SPECTRE: Profile </title>
+        <title> SPECTRE: Albums </title>
+        
         <link rel = "stylesheet" href = "styles.css">
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="libraries/jBox-0.4.7/Source/plugins/Image/jBox.Image.css" rel="stylesheet">
+        <link rel="stylesheet" href="libraries/fancybox-master/dist/jquery.fancybox.min.css"/>
+        
         <script src = "libraries/jquery-min.js"> </script>
-        <script src = "scripts/profile.js"> </script>
+        <script src="libraries/fancybox-master/dist/jquery.fancybox.min.js"></script>
+        <script src = "libraries/jQueryRotate.js"> </script>
         <script src = "libraries/jBox-0.4.7/Source/jBox.min.js"> </script>
 
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale = 1.0">
+        
+        <script src = "scripts/single-album.js"> </script>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     
     <body>
@@ -34,53 +42,34 @@
                             <div class = "navIconText"> IMAGES </div>
                         </a>
                     </li>
-                    <li class = "navIcon" data-message = "Albums" data-container = "albumContainer"> 
+                    <li class = "navIcon active" data-message = "Albums" data-container = "albumContainer"> 
                         <a href = "albums.html">
                             <div class = "navLinkIcon" id = "albums"> </div> 
                             <div class = "navIconText"> ALBUMS </div>  
                         </a>
                     </li>
-                    <li class = "navIcon active" data-message = "Users" data-container = "userContainer"> 
+                    <li class = "navIcon" data-message = "Users" data-container = "userContainer"> 
                         <a href = "users.html">
                             <div class = "navLinkIcon" id = "users"> </div> 
                             <div class = "navIconText"> USERS </div> 
                         </a>
                     </li>
                 </ul>
+                <div class = "messageContainer" id = "searchMessage">
+                    <input id = "searchText" type = "text">
+                    <div id = "search">
+
+                    </div>
+                </div>
             </div>
-            
-            <div id = "wholePanel"> 
-                <div class = "container">
-                    <div class = "profile">
-                        <div class = "profileBox">
-                            <div id = "addressMap"> </div>
-                            <div class = " profileBoxImportant"> 
-
-                            </div>
-                        </div>
-
-                        
-                        <div id = "container">
-                            <ul>
-                                <li> <a href = "#postsTab"> Posts </a></li>
-                            </ul>
-                            <ul>
-                                <li> <a href = "#albumsTab"> Albums </a></li>
-                            </ul>
-                            
-                            <div id = "postsTab"> 
-                            
-                            </div>
-
-                            <div id = "albumsTab">
-
-                            </div>
-                        </div>
-                    </div>   
+            <div id = "wholePanel">
+                <div class = "albumInfo">
+                    
+                </div>
+                <div class = "container" id = "albumGallery" > 
+                    
                 </div>
             </div>
         </div>
-        
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAA1A5dg4FK2pupnrA1oqsNd_t6G4mUswo&callback=geoLocationOfUser"></script>
     </body>
 </html>
