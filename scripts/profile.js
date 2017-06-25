@@ -135,6 +135,7 @@ function getPostsOfUser(user, start) {
                getPostsOfUser(user, userPostCnt); 
             });
         }
+
         else{
             $('.postsProfileContainer .more').hide();
         }
@@ -163,8 +164,8 @@ function getAlbums(user, start) {
         
             userAlbumCnt = i;
             
-        $('.albumsProfileContainer .more').click(function(e) {
-               getAlbums(user, userAlbumCnt);
+            $('.albumsProfileContainer .more').click(function(e) {
+                   getAlbums(user, userAlbumCnt);
             });
         } else {
             $('.albumsProfileContainer .more').hide();
