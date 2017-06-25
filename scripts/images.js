@@ -50,7 +50,7 @@ function getRecentImages (start) {
     }).then(function(data) {
         if(imagesCount != data.length)
         {
-            for(i = start; i < (start + 10); i++)
+            for(i = data.length - start - 1; i > (data.length - start - 11); i--)
             {
                 var imagePost = document.createElement("div");
                 var imageContent = document.createElement("div");
@@ -94,7 +94,7 @@ function getRecentImages (start) {
                 });
             }
             
-            photoCnt = i;
+            photoCnt = data.length - i - 1;
             
             if(photoCnt == data.length)
                 $('#moreMessage').hide();

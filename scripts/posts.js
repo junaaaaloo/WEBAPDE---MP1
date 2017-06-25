@@ -38,7 +38,7 @@ function getRecentPosts (start) {
       method: 'GET'
     }).then(function(data) {
         if(data.length != start) {
-            for(i = start; i < (start + 10); i++) {
+            for(i = data.length - start - 1; i > (data.length - start - 11); i--) {
                 var post = document.createElement("div");
                 var picture = document.createElement("div");
                 var pTitle = document.createElement("p");
@@ -71,7 +71,7 @@ function getRecentPosts (start) {
                 setUsername(data[i].userId, username);
             }
             
-            postsCount = i;
+            postsCount = data.length - i - 1;
             
             if(postsCount == data.length)
                 $('#moreMessage').hide();

@@ -7,8 +7,7 @@ var userAlbumCnt = 0;
 $(function() {
     var string = window.location.href;
     var url = new URL(string);
-    var userID = url.searchParams.get("userId");
-    
+    var userID = url.searchParams.get("userId");   
     goToProfile(userID, userPostCnt);
     
 })

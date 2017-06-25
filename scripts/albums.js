@@ -15,7 +15,7 @@ function getRecentAlbums (start) {
         method: 'GET'
     }).then(function(data){
         if(data.length != albumsCount) {
-            for(var i = start; i < (start + 5); i++) {
+            for(i = data.length - start - 1; i > (data.length - start - 11); i--) {
                 var albumName = document.createElement('p');
                 albumName.innerHTML = "album title";
 
@@ -37,7 +37,7 @@ function getRecentAlbums (start) {
             $('#moreMessage').hide();
         }
         
-        albumsCount = i;
+        albumsCount = data.length - i - 1;
     });   
 }
 
