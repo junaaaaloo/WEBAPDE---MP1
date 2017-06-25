@@ -11,23 +11,25 @@ function getUsers(){
     }).then(function(data) {
         for(i = 0; i < data.length; i++)
         {
-            var user = document.createElement("div");
+            var user = document.createElement("a");
             var pic = document.createElement("div");
-            var name = document.createElement("a");
-            var username = document.createElement("a");
+            var name = document.createElement("p");
+            var username = document.createElement("p");
+            var contentArea = document.createElement("div");
             
             $(user).addClass("user");
             $(pic).addClass("picture");
+            $(contentArea).addClass("content");
             
             $(user).append(pic);
-            $(user).append(name);
-            $(user).append(username);
-            $("#container").append(user);
+            $(contentArea).append(name);
+            $(contentArea).append(username);
+            $(user).append(contentArea);
+            $("#userContainer").append(user);
             
-            $(name).attr('href', 'profile.html?userId=' + data[i].userId);
-            $(username).attr('href', 'profile.html?userId=' + data[i].userId);
+            $(user).attr('href', 'profile.html?userId=' + data[i].userId);
             name.innerHTML = data[i].name;
-            username.innerHTML = data[i].username;
+            username.innerHTML = "@" + data[i].username;
             console.log(data[i].username);
         }
     });
