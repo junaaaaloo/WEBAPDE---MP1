@@ -11,10 +11,7 @@ $(function() {
     if(userID != null)
         goToProfile(userID, userPostCnt);
     else
-        window.location.href = "users.html"
-    
-    $("#container").tabs();
-    
+        window.location.href = "users.html"  
 })
 
 function goToProfile (id, postNum) {
@@ -145,41 +142,44 @@ function getPostsOfUser(user, start) {
     });
 }
 
-function getAlbums(user, start) {
+function getAlbums(user) {
      $.ajax({
         url: root + '/albums',
         method: 'GET'
     }).then(function(data){
         if(data.length != albumsCount) {
-            for(i = data.length - start - 1; i > (data.length - start - 11); i--) {
-                var albumName = document.createElement('p');
-                albumName.innerHTML = "album title";
+            var count = 0;
+            for(i = data.length-1; i >= 0 && count < 10; i--) {
+                if(data[i].userId == user) {
+                    count += 1;
+                    var albumName = document.createElement('p');
+                    var albumLink = document.createElement('a');
+                    var albumPost = document.createElement('ul');
 
-                var albumLink = document.createElement('a');
-                var albumPost = document.createElement('ul');
-                
-                $(albumLink).attr('href', 'single-album.html?albumId=' + data[i].id);
-                $(albumLink).addClass('albumLink');
-                $(albumPost).addClass('album');
-                $(albumName).addClass('albumTitle');
+                    $(albumLink).attr('href', 'single-album.html?albumId=' + data[i].id);
+                    $(albumLink).addClass('albumLink');
+                    $(albumPost).addClass('album');
+                    $(albumName).addClass('albumTitle');
 
-                albumName.innerHTML = "" + data[i].title
-     
-                setThumbnailImages(data[i].id, albumPost);
-                $('.profileAlbumsContainer').append(albumLink);
-                $(albumLink).append(albumPost);
-                $(albumPost).append(albumName);
+                    albumName.innerHTML = "" + data[i].title
+
+                    setThumbnailImages(data[i].id, albumPost);
+                    $('.profileAlbumsContainer').append(albumLink);
+                    $(albumLink).append(albumPost);
+                    $(albumPost).append(albumName);
+                }
             }
             
             if(data.length == albumsCount)
-                $('#moreMessage').hide();
+                $('#moreAlbumsMessage').hide();
         } else {
-            $('#moreMessage').hide();
+            $('#moreAlbumsMessage').hide();
         }
         
         albumsCount = data.length - i - 1;
     });   
 }
+
 function geoLocationOfUser () {
     map = new google.maps.Map(document.getElementById('addressMap'), {
         center: {lat: 0, lng: 0},
@@ -194,22 +194,21 @@ function geoLocationOfUser () {
     });
 }
 
-function setAlbumThumbnail(id, albumPost)
+function setThumbnailImages(id, albumPost)
 {
     $.ajax({
-        url: root + '/photos?albumId=' + id,
+        url: root + '/photos',
         method: 'GET'
-        }).then(function(data){
-            var i = Math.floor((Math.random() * 50) + 1);
-        
-            var imagePost = document.createElement('div');
-            var imageContent = document.createElement('div');
-        
-            $(imagePost).addClass('imagePost');
-            $(imageContent).addClass('imageContent');
-            $(imageContent).css("background-image", "url(" + data[i].thumbnailUrl + ")");
-        
+    }).then(function(data){
+        var count = 0;
+        for (var j = (id)*50-1; j > ((id-1)*50)+45; j--) {    
+            var imagePost = document.createElement('li');
+            var imageContent = document.createElement('img');
+            
+            $(imageContent).attr("src", data[j].thumbnailUrl);
+            
             $(imagePost).append(imageContent);
             $(albumPost).append(imagePost);
+        } 
     });
 }
