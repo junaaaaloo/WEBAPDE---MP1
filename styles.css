@@ -254,7 +254,6 @@ mark {
 
 .imagePost:hover{
     opacity: 1;
-    padding: 10px;
 }
 #imageContainer.imagePost:hover {
     opacity: 0.95;
@@ -400,26 +399,38 @@ mark {
 
 .album {
     position: relative;
-    width: 400px;
-    height: 350px;
-    display: inline-flex;
-    margin: 15px;
+    list-style: none;
+    width: 300px;
+    height: 300px;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    margin: 20px;
+    border-color: white;
+    border-style: solid;
 }
 
-.album .imagePost {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 40px;
-    text-align: center;
+
+.album li {
+    display: inline-block;
+    border: 0;
+    border-color: white;
+    border-style: solid;
+    bottom: 0px;
+    left: 0px;
 }
 
-.albumTitle{
+.albumTitle {
     font-family: 'Lato';
     font-size: 20px;
     color: white;
-    text-align: center;
     margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: black;
+    opacity: 0.6;
+    height: 100%;
 } 
 
 #albumContainer {
@@ -429,39 +440,56 @@ mark {
 
 /* ------------ USERS PAGE  ------------ */
 .user {
-    width: 500px;
-    height: 100px;
+    height: 150px;
     font-family: 'Open Sans';
     color:white;
+    margin: 0 auto;
+    opacity: 0.7;
     position: relative;
-    margin: auto;
-    left: 0;
-    right: 0;
-    opacity: 0.8;
-    width: 70%;
+    width: 30%;
+    display: inline-flex;
     border-radius: 2px;
-    /*background: linear-gradient(to right, #FECA74, #F68B64, #E2636A, #C1678C, #996C93);*/
     transition: opacity 0.5s;
-    cursor: default;
-    border-bottom-style: solid;
-    padding: 0px;
+    cursor: pointer;
+    border-style: solid;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    transition: width 0.5s, height 0.5s opacity 0.5s;
 }
 
 .user:hover {
-    opacity: 0.95;
-    width: 510px;
-    height: 110px;
+    opacity: 1;
+}
+
+.user .picture {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    margin: 0 auto;
+    top: -50px;
+    background-color: steelblue;
+    width: 80px;
+    height: 80px;
+    border-radius: 3em;
+    background-size: 400px 320px;
+    background-position: 160px 320px;
+    background-image: url(resources/spritesheet.png);
 }
 
 
-.user .picture {
-    width: 80px;
-    height: 80px;
-    left: 10px;
-    top: 10px;
-    bottom: 10px;
-    background-size: 400px 320px;
-    background-position: 160px 320px;
+.user .content {
+    width: 100%;
+    height: 80%;
+    bottom: 0px;
+    position: absolute;
+    text-align: center;
+}
+
+
+#userContainer {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
 }
 
 /* ------------ PROFILE PAGE  ------------ */
@@ -554,7 +582,7 @@ mark {
     color:  rgb(14, 25, 44);
     font-style: oblique;
     margin-left: auto;
-    margin-top: 100px;
+    
     font-size: 26px;
     font-weight: bolder;
     transition: font-size 0.5s, font-weight 0.5s;
@@ -571,6 +599,7 @@ mark {
     position: relative;
     width: 100%;
     height:100px;
+    margin-top: 100px;
 }
 
 /* ------------ SEARCH BAR ------------ */

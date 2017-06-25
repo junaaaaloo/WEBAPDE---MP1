@@ -19,19 +19,23 @@ function getRecentAlbums (start) {
                 var albumName = document.createElement('p');
                 albumName.innerHTML = "album title";
 
-                var albumPost = document.createElement('div');
+                var albumPost = document.createElement('ul');
 
                 $(albumPost).addClass('album');
-                $(albumName).addClass('albumTitle')
+                $(albumName).addClass('albumTitle');
 
                 albumName.innerHTML = "" + data[i].title;
                 $(albumPost).append(albumName);
 
-                setAlbumImages(data[i].id, albumPost);
+                setThumbnailImages(data[i].id, albumPost);
                 $('#albumContainer').append(albumPost);
+                $(albumPost).hover(function () {
+                    var i = 0;
+                    $(this).css("position", "relative");
+                });
             }
             
-            if(data.length != albumsCount)
+            if(data.length == albumsCount)
                 $('#moreMessage').hide();
         } else {
             $('#moreMessage').hide();
@@ -41,31 +45,21 @@ function getRecentAlbums (start) {
     });   
 }
 
-function setAlbumImages(id, albumPost)
+function setThumbnailImages(id, albumPost)
 {
     $.ajax({
         url: root + '/photos',
         method: 'GET'
     }).then(function(data){
-        for (var j = (id-1)*50; j < (id*50); j++) {    
-            var imagePost = document.createElement('div');
-            var imageContent = document.createElement('div');
+        var count = 0;
+        for (var j = (id-1)*50; j < (id*50)-46; j++) {    
+            var imagePost = document.createElement('li');
+            var imageContent = document.createElement('img');
             
-            $(imagePost).addClass('imagePost');
-            $(imageContent).addClass('imageContent');  
-            $(imageContent).css("background-image", "url(" + data[j].thumbnailUrl + ")");
+            $(imageContent).attr("src", data[j].thumbnailUrl);
             
             $(imagePost).append(imageContent);
             $(albumPost).append(imagePost);
-            
-            var rand = (Math.random() * 40) - 20;
-            $(imagePost).css("transform", "rotate(" + rand + "deg)");
-        }
-        
+        } 
     });
-}
-
-function setThumbnails(id, album) {
-    
-    
 }

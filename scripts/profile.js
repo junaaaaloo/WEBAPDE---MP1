@@ -91,7 +91,6 @@ function goToProfile (id, postNum) {
         
         infowindow.open(map,marker);
         
-        
         getPostsOfUser(data[id], postNum); 
         getAlbums(data[id], userAlbumCnt);
     });

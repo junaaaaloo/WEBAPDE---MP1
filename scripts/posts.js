@@ -75,6 +75,8 @@ function getRecentPosts (start) {
             
             if(postsCount == data.length)
                 $('#moreMessage').hide();
+            
+            filterPosts();
         } else {
             $('#moreMessage').hide();
         }

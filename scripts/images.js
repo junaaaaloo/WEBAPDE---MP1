@@ -16,8 +16,7 @@ function getAlbumName (window, id) {
     }).then(function(data) {
         $(window).append("<span id = 'albumIcon' class = 'modalIcon'> </span>");
         window.innerHTML += data[id-1].title + "<br>";
-        console.log(data[id-1].id);
-        getNameUsernameWithLink(window, data[id-1].id);
+        getNameUsernameWithLink(window, data[id-1].userId);
     });
 }
 
@@ -28,7 +27,7 @@ function getNameUsernameWithLink (window, id) {
     }).then(function(data) {
         var name = document.createElement('a');
         var username = document.createElement('a');
-
+        
         $(name).attr('href', 'profile.html?userId=' + data[id-1].id);
         $(username).attr('href', 'profile.html?userId=' + data[id-1].id);
         
