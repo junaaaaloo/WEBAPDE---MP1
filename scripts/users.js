@@ -1,15 +1,50 @@
 var root = 'https://jsonplaceholder.typicode.com';
+var userCount = 0;
 
 $(function() {
-    getUsers();
+    getUsers(userCount);
 })
 
-function getUsers(){
+
+function filterUsers () {
+    var value = $("#searchText").val();
+    var count = 0;
+    
+    $('.content').each(function() {
+        $(this).unmark();
+        if(this.innerHTML.includes(value)) {
+            count++;
+            $(this).mark(value);
+            $(this).parent().show();
+        } else {
+            $(this).parent().hide();
+        }
+    })
+    
+    if(value != "") 
+        notifyUsers("<span class = matches-notification> Search results for " + value + " : " + count + "/" + userCount + " </span>");
+}
+
+
+function notifyUsers (value) {
+    new jBox('Notice', {
+        content: value,
+        color: 'black',
+        fontFamily: 'Lato',
+        autoClose: 3000,
+        attributes: {
+            x: 'right',
+            y: 'bottom'
+        }
+    });
+}
+
+function getUsers(count){
     $.ajax({
         url: root + '/users',
         method: 'GET'
     }).then(function(data) {
-        for(i = 0; i < data.length; i++)
+        for(i = data.length - count - 1; i > data.length - count - 11; i--)
         {
             var user = document.createElement("a");
             var pic = document.createElement("div");
@@ -30,8 +65,11 @@ function getUsers(){
             $(user).attr('href', 'profile.html?userId=' + data[i].id);
             name.innerHTML = data[i].name;
             username.innerHTML = "@" + data[i].username;
-            console.log(data[i].username);
+           userCount++;
         }
+        
+        if(userCount ==  data.length)
+            $('#moreMessage').hide();
     });
         
 }

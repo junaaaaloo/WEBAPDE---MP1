@@ -5,6 +5,39 @@ $(function() {
     getRecentAlbums(albumsCount);
 });
 
+function filterAlbums () {
+    var value = $("#searchText").val();
+    var count = 0;
+    
+    $('.albumTitle').each(function() {
+        $(this).unmark();
+        if(this.innerHTML.includes(value)) {
+            count++;
+            $(this).mark(value)
+            $(this).parent().show();
+        } else {
+            $(this).parent().hide();
+        }
+    })
+    
+    if(value != "") 
+        notifyAlbums("<span class = matches-notification> Search results for " + value + " : " + count + "/" + albumsCount + " </span>");
+}
+
+
+function notifyAlbums (value) {
+    new jBox('Notice', {
+        content: value,
+        color: 'black',
+        fontFamily: 'Lato',
+        autoClose: 3000,
+        attributes: {
+            x: 'right',
+            y: 'bottom'
+        }
+    });
+}
+
 function getRecentAlbums (start) {
     $.ajax({
         url: root + '/albums',

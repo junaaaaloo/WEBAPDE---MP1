@@ -13,6 +13,8 @@ $(function() {
         goToProfile(userID);
     else
         window.location.href = "users.html"  
+    
+    
 })
 
 function goToProfile (id) {
@@ -39,7 +41,7 @@ function goToProfile (id) {
         var address = document.createElement("span");
         var phone = document.createElement("span");
         var website = document.createElement("span");
-        var company = document.createElement("span");
+        var company = document.createElement("div");
         
         var companyCatchPhrase = document.createElement("span");
         var companyDescription = document.createElement("span");
@@ -75,20 +77,21 @@ function goToProfile (id) {
         $('.profileBoxImportant').append('<br>');
         $(company).append(companyName);
         $(company).append('<br>');
-        $(company).append(companyDescription);
-        $(company).append('<br>');
         $(company).append(companyCatchPhrase);
+        $(company).append('<br>');
+        $(company).append(companyDescription);
 
         name.innerHTML = data[id].name;
         username.innerHTML = "@" + data[id].username;
         email.innerHTML = data[id].email;
         address.innerHTML = data[id].address.street + " " + data[id].address.suite + " " + data[id].address.city + " " + data[id].address.zipcode;
-        phone.innerHTML = data[id].phone;
-        website.innerHTML = data[id].website;
+        phone.innerHTML = "<b>Phone: </b>" + data[id].phone;
+        website.innerHTML = "<b>Website: </b>" + data[id].website;
         
-        companyName.innerHTML = data[id].company.name;
-        companyCatchPhrase.innerHTML = data[id].company.catchPhrase;
+        companyName.innerHTML = "<b>Company</b>";
         companyDescription.innerHTML = data[id].company.bs;
+        companyCatchPhrase.innerHTML = data[id].company.name + "<br>\"" +data[id].company.catchPhrase + "\"";
+        
         
         map.setCenter(new google.maps.LatLng(data[id].address.geo.lat, data[id].address.geo.lng));
         marker.setPosition(new google.maps.LatLng(data[id].address.geo.lat, data[id].address.geo.lng));
@@ -105,7 +108,6 @@ function goToProfile (id) {
         
         getPostsOfUser(postsCount); 
         getAlbumsOfUser(albumsCount);
-        
     });
 }
 
@@ -129,7 +131,6 @@ function getPostsOfUser(start) {
                 $(contentPost).addClass("contentPost");
                 $(contentArea).addClass("contentArea");
                 
-                
                 $(post).append(picture);
                 $(post).append(pTitle);
                 $(post).append(contentArea);
@@ -139,8 +140,37 @@ function getPostsOfUser(start) {
                 contentPost.innerHTML = data[i].body;
                 pTitle.innerHTML = data[i].title;
                 postsCount += 1;
+                
+                var showChar = 70;  // How many characters are shown by default
+                var moretext = "Read more >>>";
+                var lesstext = "Read less <<<";
+                var content = $(contentPost).html();
+
+                if(content.length > showChar) {
+
+                    var c = content.substr(0, showChar);
+                    var h = content.substr(showChar, content.length - showChar);
+
+                    var html = c + '<span class="morecontent">' + h + '</span> <span class="morelink">' + moretext + '</span>';
+
+                    $(contentPost).html(html);
+                }
             }
             
+            $(".morelink").click(function(e){
+                if($(this).hasClass("less")) {
+                    $(this).removeClass("less");
+                    $(this).html(moretext);
+                } else {
+                    $(this).addClass("less");
+                    $(this).html(lesstext);
+                }
+                $(this).parent().prev().toggle();
+                $(this).prev().toggle();
+                e.preventDefault();
+                return false;
+            }); 
+
             if(data.length == postsCount) 
                 $('#morePostsMessage').hide();
         }
@@ -201,7 +231,10 @@ function setThumbnailImages(id, albumPost)
         method: 'GET'
     }).then(function(data){
         var count = 0;
-        for (var j = 49; j > 45; j--) {    
+        var rand = Math.round((Math.random() * 45) + 4);
+        
+        for (var j = rand; j > rand-4
+             ; j--) {    
             var imagePost = document.createElement('li');
             var imageContent = document.createElement('img');
             

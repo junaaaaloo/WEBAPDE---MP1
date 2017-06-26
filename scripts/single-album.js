@@ -23,10 +23,6 @@ function goToAlbum (id) {
     });   
 }
 
-function loadUser (window, id) {
-    
-}
-
 function getNameUsernameWithLink (window, id) {
     $.ajax({
       url: root + '/users',

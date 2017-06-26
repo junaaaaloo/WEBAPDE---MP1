@@ -5,11 +5,14 @@
         <link rel = "stylesheet" href = "styles.css">
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="libraries/jBox-0.4.7/Source/plugins/Notice/jBox.Notice.css" rel="stylesheet">
         
         <script src = "libraries/jquery-min.js"> </script>
+        <script src = "libraries/jBox-0.4.7/Source/plugins/Notice/jBox.Notice.min.js"> </script>
+        <script src = "libraries/jBox-0.4.7/Source/jBox.min.js"> </script>
+        <script src = "libraries/mark.js/jquery.mark.min.js"> </script>
         <script src = "scripts/images.js"> </script>
         <script src = "libraries/jQueryRotate.js"> </script>
-        <script src = "libraries/jBox-0.4.7/Source/jBox.min.js"> </script>
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -54,7 +57,7 @@
                     </li>
                 </ul>
                 <div class = "messageContainer" id = "searchMessage">
-                    <input id = "searchText" type = "text">
+                    <input id = "searchText" type = "text" placeholder = "Type here to filter images" oninput = "filterImages()">
                     <div id = "search">
 
                     </div>
@@ -70,12 +73,12 @@
                         VIEW MORE
                     </a>
                 </div>
-                <div class="modalImage">
-                    <span class = "closeModal"> &times; </span>
-                    <div class = "modalImageContentContainer"> 
-                        <img class = "modalImageContent"> 
-                        <div class = "modalOverlay">
-                        </div>
+            </div>
+            <div class="modalImage">
+                <span class = "closeModal"> &times; </span>
+                <div class = "modalImageContentContainer"> 
+                    <img class = "modalImageContent"> 
+                    <div class = "modalOverlay">
                     </div>
                 </div>
             </div>

@@ -4,12 +4,15 @@
         <link rel = "stylesheet" href = "styles.css">
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+                <link href="libraries/jBox-0.4.7/Source/plugins/Notice/jBox.Notice.css" rel="stylesheet">
+        
         <script src = "libraries/jquery-min.js"> </script>
+        <script src = "libraries/jBox-0.4.7/Source/plugins/Notice/jBox.Notice.min.js"> </script>
+        <script src = "libraries/jBox-0.4.7/Source/jBox.min.js"> </script>
+        <script src = "libraries/mark.js/jquery.mark.min.js"> </script>
+        <script src = "scripts/users.js"> </script>
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale = 1.0">
     </head>
-    
-    <script src = "scripts/users.js"> </script>
-    
     <body>
         <div id = "background"> 
         
@@ -21,7 +24,7 @@
                     SPECTRE
                 </div>
                 <div class = "messageContainer" id = "searchMessage">
-                    <input id = "searchText" type = "text">
+                    <input id = "searchText" type = "text" placeholder = "Type here to filter users" oninput="filterUsers ()">
                 <div id = "search">
                     
                 </div>
@@ -60,7 +63,7 @@
                     
                 </div>
                 <div class = "messageContainer" id = "moreMessage">
-                    <a class = "more">
+                    <a class = "more" onclick = "getUsers(userCount)">
                         VIEW MORE
                     </a>
                 </div>

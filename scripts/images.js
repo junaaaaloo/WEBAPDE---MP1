@@ -20,6 +20,39 @@ function getAlbumName (window, id) {
     });
 }
 
+function filterImages () {
+    var count = 1;
+    var value = $("#searchText").val();
+    count = 0;
+    
+    $('.imagePost').each(function() {
+        $(this).unmark();
+        if($(this).attr("data-value").includes(value)) {
+            count++;
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    })
+    
+    if(value != "") 
+        notifyImages("<span class = matches-notification> Search results for " + value + " : " + count + "/" + imagesCount + " </span>");
+}
+
+
+function notifyImages (value) {
+    new jBox('Notice', {
+        content: value,
+        color: 'black',
+        fontFamily: 'Lato',
+        autoClose: 3000,
+        attributes: {
+            x: 'right',
+            y: 'bottom'
+        }
+    });
+}
+
 function getNameUsernameWithLink (window, id) {
     $.ajax({
       url: root + '/users',
@@ -60,7 +93,9 @@ function getRecentImages (start) {
                 $(imagePost).addClass("imagePost");
                 $(imageContent).addClass("imageContent");
                 
-                $(imageContent).css("background-image", "url(" + data[i].thumbnailUrl + ")");      
+                $(imageContent).css("background-image", "url(" + data[i].thumbnailUrl + ")");  
+                
+                $(imagePost).attr("data-value", data[i].title); 
                 $(imagePost).rotate(rand);
                 
                 $('#imageContainer').append(imagePost);
@@ -70,9 +105,15 @@ function getRecentImages (start) {
                     var imgsrc = data[$(this).attr("value") - 1].url;
                     $(".modalImageContent").attr("src", imgsrc);
                     document.getElementsByClassName("modalOverlay")[0].innerHTML = "<span id = 'titleIcon' class = 'modalIcon'> </span>";
-                    document.getElementsByClassName("modalOverlay")[0].innerHTML += data[i].title + "<br>";
+                    document.getElementsByClassName("modalOverlay")[0].innerHTML += "<span class = 'titleImage'> " + data[$(this).attr("value") - 1].title + "</span><br>";
                     getAlbumName(document.getElementsByClassName("modalOverlay")[0], data[$(this).attr("value") - 1].albumId);
                     document.getElementsByClassName("modalImage")[0].style.display = "block";
+                    
+                    var value = $("#searchText").val();
+                    value = value.replace(/\s/g,'');
+                    
+                    if(value != "")
+                        $('.titleImage').mark(value);
                 })
                 
                
@@ -91,11 +132,11 @@ function getRecentImages (start) {
                     theme: 'TooltipDark',
                     content: "<span class = 'hover-title'> " + data[i].title + "</span> <br>" + " <span class = 'hover-more'> Click to view more details </span>",
                 });
+                
+                imagesCount++;
             }
             
-            photoCnt = data.length - i - 1;
-            
-            if(photoCnt == data.length)
+            if(imagesCount == data.length)
                 $('#moreMessage').hide();
         } else {
             $('#moreMessage').hide();
