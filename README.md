@@ -1,6 +1,4 @@
-# WEBAPDE---MP1
-
-niche.
+# WEBAPDE---MP1 "niche."
 
 Contributors: Jonal Ticug, Janelle Gaba, and Sean Paragas
 
