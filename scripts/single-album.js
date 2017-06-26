@@ -48,11 +48,11 @@ function getNameUsernameWithLink (window, id) {
 function loadImages(id, albumPost)
 {
     $.ajax({
-        url: root + '/photos',
+        url: root + '/photos?albumId=' + id,
         method: 'GET'
     }).then(function(data){
         var count = 0;
-        for (var j = (id)*50-1; j > (id-1)*50-1; j--) {    
+        for (var j = 50-1; j > -1; j--) {    
             var imagePost = document.createElement('a');
             var imageContent = document.createElement('img');
             

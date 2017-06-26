@@ -44,11 +44,11 @@ function getRecentAlbums (start) {
 function setThumbnailImages(id, albumPost)
 {
     $.ajax({
-        url: root + '/photos',
+        url: root + '/photos?albumId='+id,
         method: 'GET'
     }).then(function(data){
         var count = 0;
-        for (var j = (id)*50-1; j > ((id-1)*50)+45; j--) {    
+        for (var j = 49; j > 45; j--) {    
             var imagePost = document.createElement('li');
             var imageContent = document.createElement('img');
             

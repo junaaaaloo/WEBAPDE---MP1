@@ -50,34 +50,41 @@
             </div>
             
             <div id = "wholePanel"> 
-                <div class = "container">
-                    <div class = "profile">
-                        <div class = "profileBox">
-                            <div id = "addressMap"> </div>
-                            <div class = " profileBoxImportant"> 
+                <div class = "profile">
+                    <div class = "profileBox">
+                        <div id = "addressMap"> </div>
+                        <div class = " profileBoxImportant"> 
 
+                        </div>
+                    </div>
+
+
+                    <div class = "container" id = "tabsContainer">
+                        <ul class = tabs>
+                            <li class = "tab-link current" data-tab = "postsTab"> Posts </li>
+                            <li class = "tab-link" data-tab = "albumsTab"> Albums </li>
+                        </ul>
+
+                        <div id = "postsTab" class = "tab-content current"> 
+                            <div class = "profilePostsContainer"> </div>
+                            <div class = "messageContainer" id = "morePostsMessage">
+                                <a class = "more" onclick = "getPostsOfUser(postsCount)">
+                                    VIEW MORE
+                                </a>
                             </div>
                         </div>
 
-                        
-                        <div id = "container">
-                            <ul>
-                                <li> <a href = "#postsTab"> Posts </a></li>
-                            </ul>
-                            <ul>
-                                <li> <a href = "#albumsTab"> Albums </a></li>
-                            </ul>
+                        <div id = "albumsTab" class = "tab-content">
                             
-                            <div id = "postsTab"> 
-                                <div class = "profilePostsContainer"> </div>
-                            </div>
-
-                            <div id = "albumsTab">
-                                <div class = "profileAlbumsContainer"> </div>
+                            <div class = "profileAlbumsContainer"> </div>
+                            <div class = "messageContainer" id = "moreAlbumsMessage">
+                                <a class = "more" onclick = "getAlbumsOfUser(albumsCount)">
+                                    VIEW MORE
+                                </a>
                             </div>
                         </div>
-                    </div>   
-                </div>
+                    </div>
+                </div>   
             </div>
         </div>
         
