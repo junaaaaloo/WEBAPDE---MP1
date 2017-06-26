@@ -198,7 +198,7 @@ mark {
 }
 
 .post .postTitle {
-    font-size: 25px;
+    font-size: 22px;
     margin-left: 80px;
     font-weight: bolder;
 }
@@ -241,7 +241,6 @@ mark {
     position: relative;
     background: url(resources/spritesheet.png);
     left: 15px;
-    top: 10px;
     background-size: 250px 200px;
     background-position: 100px 00px;
     width: 50px;
@@ -484,8 +483,9 @@ mark {
     flex-wrap: wrap;
     width: 80%;
     right: 0;
-    margin: 0 auto;
-    padding-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
 }
 
 #albumGallery a {
@@ -867,7 +867,7 @@ mark {
     
     .post .postTitle {
         height: 75px;
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .modalImageContent {
