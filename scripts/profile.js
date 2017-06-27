@@ -40,7 +40,7 @@ function goToProfile (id) {
       url: root + '/users',
       method: 'GET'
     }).then(function(data) {
-        id = id - 1;
+        id = id - 1; 
         
         $('.tab-link').click(function() {
             var tabID = $(this).attr('data-tab');
@@ -56,7 +56,6 @@ function goToProfile (id) {
         var name = document.createElement("span");
         var username = document.createElement("span");
         var email = document.createElement("span");
-        var address = document.createElement("span");
         var phone = document.createElement("span");
         var website = document.createElement("span");
         var company = document.createElement("div");
@@ -69,7 +68,6 @@ function goToProfile (id) {
         $(name).addClass("name");
         $(username).addClass("username");
         $(email).addClass("email");
-        $(address).addClass("address");
         $(phone).addClass("phone");
         $(website).addClass("website");
         $(company).addClass("company");
@@ -101,31 +99,18 @@ function goToProfile (id) {
 
         name.innerHTML = data[id].name;
         username.innerHTML = "@" + data[id].username;
-        email.innerHTML = data[id].email;
-        address.innerHTML = data[id].address.street + " " + data[id].address.suite + " " + data[id].address.city + " " + data[id].address.zipcode;
-        phone.innerHTML = "<b>Phone: </b>" + data[id].phone;
+        email.innerHTML = data[id].email;     phone.innerHTML = "<b>Phone: </b>" + data[id].phone;
         website.innerHTML = "<b>Website: </b>" + data[id].website;
         
         companyName.innerHTML = "<b>Company</b>";
         companyDescription.innerHTML = data[id].company.bs;
         companyCatchPhrase.innerHTML = data[id].company.name + "<br>\"" +data[id].company.catchPhrase + "\"";
-        
-        
-        map.setCenter(new google.maps.LatLng(data[id].address.geo.lat, data[id].address.geo.lng));
-        marker.setPosition(new google.maps.LatLng(data[id].address.geo.lat, data[id].address.geo.lng));
-        
-        google.maps.event.addListener(marker, 'click', function() {
-            infowindow.open(map,marker);
-        });
-        
-        var infowindow = new google.maps.InfoWindow({
-            content: "<div class = 'address'>" + address.innerHTML + "</div>",
-        });
-        
-        infowindow.open(map,marker);
-        
+    
         getPostsOfUser(postsCount); 
         getAlbumsOfUser(albumsCount);
+        
+        google.maps.event.addDomListener(window, 'load', geoLocationOfUser(data[id].address.geo.lat, data[id].address.geo.lng, data[id].address.street + " " + data[id].address.suite + " " + data[id].address.city + " " + data[id].address.zipcode));
+
     });
 }
 
@@ -196,17 +181,27 @@ function getPostsOfUser(start) {
     
 }
 
-function geoLocationOfUser () {
+function geoLocationOfUser (lat, lng, add) {
     map = new google.maps.Map(document.getElementById('addressMap'), {
-        center: {lat: 0, lng: 0},
+        center: new google.maps.LatLng(lat, lng),
         zoom: 6,
         /* source: https://snazzymaps.com/style/122/flat-map-with-labels */
         styles: [ { "featureType": "water", "elementType": "all", "stylers": [ { "hue": "#7fc8ed" }, { "saturation": 55 }, { "lightness": -6 }, { "visibility": "on" } ] }, { "featureType": "water", "elementType": "labels", "stylers": [ { "hue": "#7fc8ed" }, { "saturation": 55 }, { "lightness": -6 }, { "visibility": "off" } ] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [ { "hue": "#83cead" }, { "saturation": 1 }, { "lightness": -15 }, { "visibility": "on" } ] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [ { "hue": "#f3f4f4" }, { "saturation": -84 }, { "lightness": 59 }, { "visibility": "on" } ] }, { "featureType": "landscape", "elementType": "labels", "stylers": [ { "hue": "#ffffff" }, { "saturation": -100 }, { "lightness": 100 }, { "visibility": "off" } ] }, { "featureType": "road", "elementType": "geometry", "stylers": [ { "hue": "#ffffff" }, { "saturation": -100 }, { "lightness": 100 }, { "visibility": "on" } ] }, { "featureType": "road", "elementType": "labels", "stylers": [ { "hue": "#bbbbbb" }, { "saturation": -100 }, { "lightness": 26 }, { "visibility": "on" } ] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [ { "hue": "#ffcc00" }, { "saturation": 100 }, { "lightness": -35 }, { "visibility": "simplified" } ] }, { "featureType": "road.highway", "elementType": "geometry", "stylers": [ { "hue": "#ffcc00" }, { "saturation": 100 }, { "lightness": -22 }, { "visibility": "on" } ] }, { "featureType": "poi.school", "elementType": "all", "stylers": [ { "hue": "#d7e4e4" }, { "saturation": -60 }, { "lightness": 23 }, { "visibility": "on" } ] } ],
     });
     
     marker = new google.maps.Marker({
-        position: {lat: 0, lng: 0},
-        map: map
+        position: {lat: lat, lng: lng},
+        map: map,
+    });
+    
+    var infowindow = new google.maps.InfoWindow({
+        content: "<div class = 'address'>" + add + "</div>",
+    });
+
+    infowindow.open(map, marker);
+
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
     });
 }
 
