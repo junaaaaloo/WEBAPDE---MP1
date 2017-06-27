@@ -19,11 +19,6 @@ $(document).ajaxError(function(){
     $('#messageComplete').html("Internal Server Error");
 });
 
-$(document).error(function (){
-    $("#waitImg").css("display", "none");
-    $('#messageComplete').html("Internal Server Error");
-})
-
 $(function() {
     var string = window.location.href;
     var url = new URL(string);
