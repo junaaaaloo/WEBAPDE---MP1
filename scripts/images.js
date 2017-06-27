@@ -1,5 +1,25 @@
 var root = 'https://jsonplaceholder.typicode.com';
 var imagesCount = 0;
+var prev; 
+
+$(document).ajaxStart(function(){
+    $("#waitImg").css("display", "block");
+    if(imagesCount == 0)
+        $('#wholePanel').css("display", "none");
+});
+
+$(document).ajaxComplete(function(){
+    $("#waitImg").css("display", "none");
+    $('#wholePanel').css("display", "block");
+    
+});
+
+
+$(document).ajaxError(function(){
+    $("#waitImg").css("display", "none");
+    $('#messageComplete').html("Internal Server Error");
+});
+
 
 $(function () {
     getRecentImages(imagesCount);
@@ -35,17 +55,20 @@ function filterImages () {
         }
     })
     
+    if(prev != null)
+        prev.close();
+    
     if(value != "") 
         notifyImages("<span class = matches-notification> Search results for " + value + " : " + count + "/" + imagesCount + " </span>");
 }
 
 
 function notifyImages (value) {
-    new jBox('Notice', {
+    prev = new jBox('Notice', {
         content: value,
         color: 'black',
         fontFamily: 'Lato',
-        autoClose: 3000,
+        autoClose: 5000,
         attributes: {
             x: 'right',
             y: 'bottom'
@@ -110,10 +133,12 @@ function getRecentImages (start) {
                     document.getElementsByClassName("modalImage")[0].style.display = "block";
                     
                     var value = $("#searchText").val();
-                    value = value.replace(/\s/g,'');
                     
+                    var options = {};
+                    options['separateWordSearch'] = false;
+
                     if(value != "")
-                        $('.titleImage').mark(value);
+                        $('.titleImage').mark(value, options);
                 })
                 
                

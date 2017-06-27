@@ -1,5 +1,24 @@
 var root = 'https://jsonplaceholder.typicode.com';
 var postsCount = 0;
+var prev;
+
+$(document).ajaxStart(function(){
+    $("#waitImg").css("display", "block");
+    if(postsCount == 0)
+        $('#wholePanel').css("display", "none");
+});
+
+$(document).ajaxComplete(function(){
+    $("#waitImg").css("display", "none");
+    $('#wholePanel').css("display", "block");
+    
+});
+
+
+$(document).ajaxError(function(){
+    $("#waitImg").css("display", "none");
+    $('#messageComplete').html("Internal Server Error");
+});
 
 
 $(function () {
@@ -8,13 +27,16 @@ $(function () {
 
 function filterPosts () {
     var value = $("#searchText").val();
-    value = value.replace(/\s/g,'');
     var count = 0;
+    
+    var options = {};
+    options['separateWordSearch'] = false;
+    
     $('.postTitle').each(function(){
         $(this).unmark();
         if(this.innerHTML.includes(value)) {
             $(this).parent().show();
-            $(this).mark(value);
+            $(this).mark(value, options);
             count++;
         } else {
             $(this).parent().hide();
@@ -27,24 +49,27 @@ function filterPosts () {
             if(!$(this).is(":visible"))
                 count++;
             $(this).parent().parent().show();
-            $(this).mark(value);
+            $(this).mark(value, options);
         } else {
             if(!$(this).is(":visible")) {
                 $(this).parent().parent().hide();
             }
         }
     });
-
+    
+    if(prev != null)
+        prev.close();
+    
     if(value != "") 
         notifyPosts("<span class = matches-notification> Search results for " + value + " : " + count + "/" + postsCount + " </span>");
 }
 
 function notifyPosts (value) {
-    new jBox('Notice', {
+    prev = new jBox('Notice', {
         content: value,
         color: 'black',
         fontFamily: 'Lato',
-        autoClose: 3000,
+        autoClose: 5000,
         attributes: {
             x: 'right',
             y: 'bottom'

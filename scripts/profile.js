@@ -5,6 +5,24 @@ var userID = 0;
 var postsCount = 0;
 var albumsCount = 0;
 
+$(document).ajaxStart(function(){
+    $("#waitImg").css("display", "block");
+    if(postsCount == 0  && albumsCount == 0)
+        $('#wholePanel').css("display", "none");
+});
+
+$(document).ajaxComplete(function(){
+    $("#waitImg").css("display", "none");
+    $('#wholePanel').css("display", "block");
+    
+});
+
+
+$(document).ajaxError(function(){
+    $("#waitImg").css("display", "none");
+    $('#messageComplete').html("Internal Server Error");
+});
+
 $(function() {
     var string = window.location.href;
     var url = new URL(string);

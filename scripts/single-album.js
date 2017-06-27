@@ -1,4 +1,28 @@
 var root = 'https://jsonplaceholder.typicode.com';
+var imageCount = 0;
+
+$(document).ajaxStart(function(){
+    $("#waitImg").css("display", "block");
+    if(imageCount == 0);
+        $('#wholePanel').css("display", "none");
+});
+
+$(document).ajaxComplete(function(){
+    $("#waitImg").css("display", "none");
+    $('#wholePanel').css("display", "block");
+    
+});
+
+
+$(document).ajaxError(function(){
+    $("#waitImg").css("display", "none");
+    $('#messageComplete').html("Internal Server Error");
+});
+
+$(document).error(function (){
+    $("#waitImg").css("display", "none");
+    $('#messageComplete').html("Internal Server Error");
+})
 
 $(function() {
     var string = window.location.href;
@@ -67,6 +91,7 @@ function loadImages(id, albumPost)
                 content: "<span class = 'hover-title'> " + data[j].title + "</span> <br>"
             });
             
+            imageCount ++;
             var rand = (Math.random() * 10) - 5;
             $(imagePost).rotate(rand);
         } 

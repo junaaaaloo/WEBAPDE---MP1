@@ -1,6 +1,24 @@
 var root = 'https://jsonplaceholder.typicode.com';
 var albumsCount = 0;
+var prev;
 
+$(document).ajaxStart(function(){
+    $("#waitImg").css("display", "block");
+    if(albumsCount == 0)
+        $('#wholePanel').css("display", "none");
+});
+
+$(document).ajaxComplete(function(){
+    $("#waitImg").css("display", "none");
+    $('#wholePanel').css("display", "block");
+    
+});
+
+
+$(document).ajaxError(function(){
+    $("#waitImg").css("display", "none");
+    $('#messageComplete').html("Internal Server Error");
+});
 $(function() {
     getRecentAlbums(albumsCount);
 });
@@ -8,29 +26,33 @@ $(function() {
 function filterAlbums () {
     var value = $("#searchText").val();
     var count = 0;
-    
+    var options = {};
+    options['separateWordSearch'] = false;
+
     $('.albumTitle').each(function() {
         $(this).unmark();
         if(this.innerHTML.includes(value)) {
             count++;
-            $(this).mark(value)
+            $(this).mark(value, options)
             $(this).parent().show();
         } else {
             $(this).parent().hide();
         }
     })
     
+    if(prev != null) 
+        prev.close();
     if(value != "") 
         notifyAlbums("<span class = matches-notification> Search results for " + value + " : " + count + "/" + albumsCount + " </span>");
 }
 
 
 function notifyAlbums (value) {
-    new jBox('Notice', {
+    prev = new jBox('Notice', {
         content: value,
         color: 'black',
         fontFamily: 'Lato',
-        autoClose: 3000,
+        autoClose: 5000,
         attributes: {
             x: 'right',
             y: 'bottom'
