@@ -23,6 +23,10 @@ $(document).ajaxError(function(){
 
 $(function () {
     getRecentImages(imagesCount);
+    $("#searchText").jBox('Mouse', {
+        theme: 'TooltipDark',
+        content: "<span class = 'hover-title'> WARNING: Search is CASE sensitive! </span>",
+    });
     $(".modalImageContent").on('load', function(){
         document.getElementsByClassName("modalImageContentContainer")[0].style.height = this.height;
         document.getElementsByClassName("modalImageContentContainer")[0].style.width = this.width;
@@ -68,7 +72,7 @@ function notifyImages (value) {
         content: value,
         color: 'black',
         fontFamily: 'Lato',
-        autoClose: 5000,
+        autoClose: false,
         attributes: {
             x: 'right',
             y: 'bottom'

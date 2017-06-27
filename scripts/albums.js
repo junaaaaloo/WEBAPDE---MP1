@@ -21,6 +21,10 @@ $(document).ajaxError(function(){
 });
 $(function() {
     getRecentAlbums(albumsCount);
+    $("#searchText").jBox('Mouse', {
+        theme: 'TooltipDark',
+        content: "<span class = 'hover-title'> WARNING: Search is CASE sensitive! </span>",
+    });
 });
 
 function filterAlbums () {
@@ -28,7 +32,7 @@ function filterAlbums () {
     var count = 0;
     var options = {};
     options['separateWordSearch'] = false;
-
+    
     $('.albumTitle').each(function() {
         $(this).unmark();
         if(this.innerHTML.includes(value)) {
@@ -52,7 +56,7 @@ function notifyAlbums (value) {
         content: value,
         color: 'black',
         fontFamily: 'Lato',
-        autoClose: 5000,
+        autoClose: false,
         attributes: {
             x: 'right',
             y: 'bottom'

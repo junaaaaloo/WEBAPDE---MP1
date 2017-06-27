@@ -23,6 +23,11 @@ $(document).ajaxError(function(){
 
 $(function () {
     getRecentPosts(postsCount);
+    $("#searchText").jBox('Mouse', {
+        theme: 'TooltipDark',
+        content: "<span class = 'hover-title'> WARNING: Search is CASE sensitive! </span>",
+    });
+    
 })
 
 function filterPosts () {
@@ -69,7 +74,7 @@ function notifyPosts (value) {
         content: value,
         color: 'black',
         fontFamily: 'Lato',
-        autoClose: 5000,
+        autoClose: false,
         attributes: {
             x: 'right',
             y: 'bottom'
