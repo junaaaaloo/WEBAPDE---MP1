@@ -35,3 +35,18 @@ Finally, the users tab of the site would display all the users of the site, with
 # User Profile Page
   
 The profile page of a user displays various information regarding the user. Information such as their name, username, e-mail address, phone number, website, company details, and even their own address displayed on a map are displayed on the profile. Clients viewing the user profile are also shown snippets of the user's recent posts, with the option to read the entire post, and the user's albums.
+
+# Used Libraries: 
+Fancy Box - Fancy JQuery JBox: http://fancybox.net/
+JBox by Stephen Wagner: https://stephanwagner.me/jBox
+mark.js - JavaScript keyword highlighter: https://markjs.io/
+JQuery: https://jquery.com/
+JQuery Rotate: http://jqueryrotate.com/
+
+# References:
+wait.gif - Ajaxload: http://www.ajaxload.info/
+LaurenScript.woff - LaurenScript Font: http://www.1001freefonts.com/lauren_script.font
+bg-city.jpg - New Evolution Designs: https://newevolutiondesigns.com/images/freebies/city-wallpaper-18.jpg
+spritesheet.png - made by using Microsoft powerpoint, files and ppt used in resources/-dummy-files
+
+
